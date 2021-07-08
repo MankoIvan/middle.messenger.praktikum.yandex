@@ -1,0 +1,223 @@
+body {
+  margin: 0;
+}
+
+#root {
+  background-color: #FFF;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  color: #1E1E1E;
+}
+
+.error {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.error__code {
+  display: block;
+  -webkit-margin-before: 0;
+          margin-block-start: 0;
+  -webkit-margin-after: 0;
+          margin-block-end: 0;
+  font-size: 40px;
+  line-height: 40px;
+  font-weight: 500;
+  margin-bottom: 20px;
+}
+
+.error__message {
+  display: block;
+  -webkit-margin-before: 0;
+          margin-block-start: 0;
+  -webkit-margin-after: 0;
+          margin-block-end: 0;
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: 500;
+  margin-bottom: 70px;
+}
+
+.button {
+  display: inline-block;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 5px;
+  padding: 0px;
+  border: none;
+  background-color: #FFF;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  font-weight: normal;
+  font-size: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  width: 280px;
+  height: 37px;
+  background-color: #3369F3;
+  color: #FFF;
+  border-radius: 8px;
+}
+
+.button:hover {
+  background-color: #1a51db;
+}
+
+.button__alt {
+  display: inline-block;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 5px;
+  padding: 0px;
+  border: none;
+  background-color: #FFF;
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande", "Lucida Sans", Arial, sans-serif;
+  font-weight: normal;
+  font-size: inherit;
+  text-decoration: none;
+  cursor: pointer;
+  width: auto;
+  height: 37px;
+  padding: 0 8px;
+  border-radius: 8px;
+}
+
+.button__alt:hover {
+  background-color: #f4f1f1;
+}
+
+.form {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  position: relative;
+  width: 340px;
+  min-height: 450px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #FFF;
+  -webkit-box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+          box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+  border-radius: 12px;
+  padding: 30px 30px 130px;
+}
+
+.form__container {
+  width: 100%;
+}
+
+.form__title {
+  display: block;
+  -webkit-margin-before: 0;
+          margin-block-start: 0;
+  -webkit-margin-after: 0;
+          margin-block-end: 0;
+  font-size: 20px;
+  line-height: 20px;
+  font-weight: 500;
+  margin: 20px;
+}
+
+.form__buttons {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  bottom: 25px;
+}
+
+.form__userImg {
+  height: 130px;
+  width: 130px;
+  background-image: url(../static/img/user_pic.jpg);
+  background-size: contain;
+  border-radius: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.form__userImg-cover {
+  height: 100%;
+  width: 100%;
+}
+
+.form-piece {
+  width: 100%;
+  padding: 8px 0;
+}
+
+.form-piece__label {
+  display: block;
+  -webkit-margin-before: 0;
+          margin-block-start: 0;
+  -webkit-margin-after: 0;
+          margin-block-end: 0;
+  color: #999;
+  font-size: 9px;
+  line-height: 9px;
+  font-weight: 500;
+}
+
+.form-piece__input {
+  width: 100%;
+  color: #1E1E1E;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 13px;
+  border: none;
+  border-bottom: 1px solid #3369F3;
+}
+
+.form-piece__error {
+  display: block;
+  -webkit-margin-before: 0;
+          margin-block-start: 0;
+  -webkit-margin-after: 0;
+          margin-block-end: 0;
+  color: #FF2F2F;
+  font-size: 8px;
+  line-height: 8px;
+  font-weight: normal;
+}
+/*# sourceMappingURL=index.css.map */
