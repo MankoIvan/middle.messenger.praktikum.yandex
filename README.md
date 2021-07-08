@@ -10,16 +10,16 @@
 
 ## Netlify
 
-- `https://romantic-euler-c770c0.netlify.app/` - домашнаяя страница
-- `https://romantic-euler-c770c0.netlify.app/user` - профиль
-- `https://romantic-euler-c770c0.netlify.app/authorize` - авторизация
-- `https://romantic-euler-c770c0.netlify.app/register` - регистрация
-- `https://romantic-euler-c770c0.netlify.app/500` - ошибка сервера
-- `https://romantic-euler-c770c0.netlify.app/any-other-url` - 404
+- https://romantic-euler-c770c0.netlify.app/ - домашнаяя страница
+- https://romantic-euler-c770c0.netlify.app/user - профиль
+- https://romantic-euler-c770c0.netlify.app/authorize - авторизация
+- https://romantic-euler-c770c0.netlify.app/register - регистрация
+- https://romantic-euler-c770c0.netlify.app/500 - ошибка сервера
+- https://romantic-euler-c770c0.netlify.app/any-other-url - 404
 
 ## Процесс
-### Спринт №1`
-- макеты прототипов экрана были взяты из `https://www.figma.com/file/24EUnEHGEDNLdOcxg7ULwV/Chat?node-id=0%3A1`
+### Спринт №1
+- макеты прототипов экрана были взяты из https://www.figma.com/file/24EUnEHGEDNLdOcxg7ULwV/Chat?node-id=0%3A1
 - подключен Parcel
 - в качестве препроцессора выбран SCSS
 - в качестве шаблонизатора выбран Handlebars
