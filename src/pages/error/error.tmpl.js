@@ -1,8 +1,8 @@
 const errorTmpl = `
     <div class="error">
-        <p class="error__code">{{code}}</p>
+        <h1 class="error__code">{{code}}</h1>
         <p class="error__message">{{message}}</p>
-        <button class="button">Назад к чатам</button>
+        <button class="button" type="button">Назад к чатам</button>
     </div>
 `;
 export { errorTmpl };
