@@ -3,26 +3,6 @@
   command = "npm run build"
     
 [[redirects]]
-  from = "/authorize"
-  to = "/"
-  status = 200
-  force = true
-[[redirects]]
-  from = "/user"
-  to = "/"
-  status = 200
-  force = true
-[[redirects]]
-  from = "/register"
-  to = "/"
-  status = 200
-  force = true
-[[redirects]]
-  from = "/500"
-  to = "/"
-  status = 200
-  force = true
-[[redirects]]
   from = "/*"
   to = "/"
   status = 200
