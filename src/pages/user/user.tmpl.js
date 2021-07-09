@@ -2,7 +2,7 @@ import { formPiece } from "../../modules/input/formPiece";
 
 const userTmpl = `
     <div class="form">
-        <p class="form__title">Профиль</p>
+        <h1 class="form__title">Профиль</h1>
         <div class="form__userImg">
                 <p class="form__userImg-coverText">Изменить<br>аватар</p>
         </div>
