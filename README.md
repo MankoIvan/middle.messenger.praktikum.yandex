@@ -28,4 +28,4 @@
 - настроена раздача статики на Netlify
 
 ## Pull requests
- - %here_goes_url% - спринт 1
+ - https://github.com/MankoIvan/middle.messenger.praktikum.yandex/pull/1 - спринт 1
