@@ -10,12 +10,12 @@
 
 ## Netlify
 
-- https://romantic-euler-c770c0.netlify.app/ - домашнаяя страница
-- https://romantic-euler-c770c0.netlify.app/user - профиль
-- https://romantic-euler-c770c0.netlify.app/authorize - авторизация
-- https://romantic-euler-c770c0.netlify.app/register - регистрация
-- https://romantic-euler-c770c0.netlify.app/500 - ошибка сервера
-- https://romantic-euler-c770c0.netlify.app/any-other-url - 404
+- https://stupefied-nobel-c31678.netlify.app/ - домашнаяя страница
+- https://stupefied-nobel-c31678.netlify.app/user - профиль
+- https://stupefied-nobel-c31678.netlify.app/authorize - авторизация
+- https://stupefied-nobel-c31678.netlify.app/register - регистрация
+- https://stupefied-nobel-c31678.netlify.app/500 - ошибка сервера
+- https://stupefied-nobel-c31678.netlify.app/any-other-url - 404
 
 ## Процесс
 ### Спринт №1
@@ -28,4 +28,4 @@
 - настроена раздача статики на Netlify
 
 ## Pull requests
- - %here_goes_url% - спринт 1
+ - https://github.com/MankoIvan/middle.messenger.praktikum.yandex/pull/1 - спринт 1
