@@ -1,5 +1,5 @@
-import { formPiece } from "../../modules/input/formPiece";
-import { button } from "../../modules/button/button";
+import { formPiece } from "../../components/input/formPiece";
+import { button } from "../../components/button/button";
 
 const userTmpl = `
     <div class="form">

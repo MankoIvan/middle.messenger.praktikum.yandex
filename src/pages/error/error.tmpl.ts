@@ -1,4 +1,4 @@
-import { button } from "../../modules/button/button";
+import { button } from "../../components/button/button";
 
 const errorTmpl = `
     <div class="error">
