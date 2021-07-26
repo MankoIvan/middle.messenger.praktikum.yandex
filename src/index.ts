@@ -6,7 +6,7 @@ import { register } from "./pages/register/register";
 import { user } from "./pages/user/user";
 
 
-const root = <HTMLElement>document.querySelector("body");
+const root = <HTMLElement>document.querySelector("#root");
 
 const path = window.location.pathname;
 
