@@ -1,4 +1,5 @@
 import { formPiece } from "../../modules/input/formPiece";
+import { button } from "../../modules/button/button";
 
 const authorizeTmpl = `
     <div class="form">
@@ -18,8 +19,15 @@ const authorizeTmpl = `
             })}
         </form>
         <div class="form__buttons">
-            <button class="button_main" type="submit">Авторизоваться</button>
-            <button class="button" type="button">Нет аккаунта?</button>
+            ${button({
+              text: "Авторизоваться",
+              type: 'submit',
+              style: 'main',
+            })}
+            ${button({
+              text: "Нет аккаунта?",
+              type: 'button',
+            })}
         </div>
     </div>
 `;

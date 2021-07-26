@@ -1,4 +1,5 @@
 import { formPiece } from "../../modules/input/formPiece";
+import { button } from "../../modules/button/button";
 
 const registerTmpl = `
     <div class="form">
@@ -48,8 +49,15 @@ const registerTmpl = `
             })}
         </form>
             <div class="form__buttons">
-            <button class="button button_main" type="submit">Зарегистрироваться</button>
-            <button class="button" type="button">Войти</button>
+            ${button({
+              text: "Зарегистрироваться",
+              type: 'submit',
+              style: 'main',
+            })}
+            ${button({
+              text: "Войти",
+              type: 'button',
+            })}
         </div>
     </div>
 `;

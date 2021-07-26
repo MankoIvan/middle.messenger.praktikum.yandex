@@ -1,4 +1,5 @@
 import { formPiece } from "../../modules/input/formPiece";
+import { button } from "../../modules/button/button";
 
 const userTmpl = `
     <div class="form">
@@ -23,9 +24,20 @@ const userTmpl = `
             })}    
         </form>
         <div class="form__buttons">
-            <button class="button button_main" type="submit">Сохранить</button>
-            <button class="button button_alert" type="button">Изменить пароль</button>
-            <button class="button" type="button">Назад</button>
+            ${button({
+              text: "Сохранить",
+              type: 'submit',
+              style: 'main',
+            })}
+            ${button({
+              text: "Изменить пароль",
+              type: 'button',
+              style: 'alert',
+            })}
+            ${button({
+              text: "Назад",
+              type: 'button',
+            })}
         </div>
     </div>
 `;
