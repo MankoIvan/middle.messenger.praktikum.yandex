@@ -1,16 +1,18 @@
 import Handlebars from "handlebars";
-
+import Block from "../../modules/block";
 import { formPieceTmpl } from "./formPiece.tmpl";
 
-const template = Handlebars.compile(formPieceTmpl);
-
-const formPiece = function (params: {
-  name: string;
-  label: string;
-  type: string;
-  message?: string;
-}) {
-  return template(params);
-};
-
-export { formPiece };
+export class FormPiece extends Block {
+  constructor(props: {
+    name: string;
+    label: string;
+    type: string;
+    message?: string;
+  }) {
+    super("container", props);
+  }
+  render() {
+    const template = Handlebars.compile(formPieceTmpl);
+    return template(this.props);
+  }
+}
