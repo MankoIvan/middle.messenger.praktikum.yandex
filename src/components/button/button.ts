@@ -1,16 +1,14 @@
 import Handlebars from "handlebars";
-
+import Block from "../../modules/block";
 import { buttonTmpl } from "./button.tmpl";
 
-const template = Handlebars.compile(buttonTmpl);
-
-const button = function (params: {
-  text: string;
-  type: string;
-  style?: string;
-}) {
-  params.style = params.style ? `button_${params.style}` : "";
-  return template(params);
-};
-
-export { button };
+export class Button extends Block {
+  constructor(props: { text: string; type: string; style?: string }) {
+    super("container", props);
+  }
+  render() {
+    const template = Handlebars.compile(buttonTmpl);
+    this.props.style = this.props.style ? `button_${this.props.style}` : "";
+    return template(this.props);
+  }
+}
