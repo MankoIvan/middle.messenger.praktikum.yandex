@@ -1,10 +1,9 @@
 import "./index.scss";
 
-import { error } from "./pages/error/error";
-import { authorize } from "./pages/authorize/authorize";
-import { register } from "./pages/register/register";
-import { user } from "./pages/user/user";
-
+import { Error } from "./pages/error/error";
+import { Authorize } from "./pages/authorize/authorize";
+import { Register } from "./pages/register/register";
+import { User } from "./pages/user/user";
 
 const root = <HTMLElement>document.querySelector("#root");
 
@@ -12,23 +11,29 @@ const path = window.location.pathname;
 
 switch (path) {
   case "/authorize":
-    root.innerHTML = authorize({});
+    const authorizePage = new Authorize();
+    root.innerHTML = authorizePage.render();
     break;
   case "/user":
-    root.innerHTML = user({});
+    const userPage = new User();
+    root.innerHTML = userPage.render();
     break;
   case "/register":
-    root.innerHTML = register({});
+    const registerPage = new Register();
+    root.innerHTML = registerPage.render();
     break;
   case "/":
-    root.innerHTML = error({
+    const pageMain = new Error({
       code: "Упс...",
       message: "Страницы пока нет, но уже скоро она появится",
     });
+    root.innerHTML = pageMain.render();
     break;
   case "/500":
-    root.innerHTML = error({ code: "500", message: "Мы уже фиксим" });
+    const page505 = new Error({ code: "500", message: "Мы уже фиксим" });
+    root.innerHTML = page505.render();
     break;
   default:
-    root.innerHTML = error({ code: "404", message: "Не туда попали" });
+    const page404 = new Error({ code: "404", message: "Не туда попали" });
+    root.innerHTML = page404.render();
 }
