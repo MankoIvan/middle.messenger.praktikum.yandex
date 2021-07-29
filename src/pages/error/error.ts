@@ -5,12 +5,17 @@ import { errorTmpl } from "./error.tmpl";
 
 export class Error extends Block {
   constructor(props: { code: string; message: string;}) {
-    super("container", {
+    super("div", {
       backButton: new Button({
         text: "Назад к чатам",
         type: 'button',
         style: 'main',
       }),
+      events: {
+        click: (event: Event) => {
+            console.log(event)
+        }
+      },
       ...props
     });
   }

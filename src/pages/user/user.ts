@@ -6,7 +6,7 @@ import { userTmpl } from "./user.tmpl";
 
 export class User extends Block {
   constructor() {
-    super("container", {
+    super("div", {
       emailInput: new FormPiece({
         name: "email",
         label: "Почта",

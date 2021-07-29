@@ -9,7 +9,7 @@ export class FormPiece extends Block {
     type: string;
     message?: string;
   }) {
-    super("container", props);
+    super("div", props);
   }
   render() {
     const template = Handlebars.compile(formPieceTmpl);

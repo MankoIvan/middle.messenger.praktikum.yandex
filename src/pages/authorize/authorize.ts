@@ -6,7 +6,7 @@ import { authorizeTmpl } from "./authorize.tmpl";
 
 export class Authorize extends Block {
   constructor() {
-    super("container", {
+    super("div", {
       loginInput: new FormPiece({
         name: "login",
         label: "Логин",
