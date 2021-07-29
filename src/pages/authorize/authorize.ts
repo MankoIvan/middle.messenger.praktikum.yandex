@@ -3,6 +3,7 @@ import Block from "../../modules/block";
 import { Button } from "../../components/button/button";
 import { FormPiece } from "../../components/formPiece/formPiece";
 import { authorizeTmpl } from "./authorize.tmpl";
+import { validateInput } from "../../modules/inputValidation";
 
 export class Authorize extends Block {
   constructor() {
@@ -20,15 +21,45 @@ export class Authorize extends Block {
         message: "Неверный пароль",
       }),
       authorizeButton: new Button({
+        id: "authorizeButton",
         text: "Авторизоваться",
-        type: 'submit',
-        style: 'main',
+        type: "submit",
+        style: "main",
       }),
       registerButton: new Button({
+        id: "registerButton",
         text: "Нет аккаунта?",
-        type: 'button',
-      })
+        type: "button",
+      }),
+      events: {
+        click: (event: Event) => this.clickHandler(event),
+        focusout: (event: Event) => this.validateOnBlur(event),
+      },
     });
+  }
+  validateOnBlur(event: Event) {
+    const eventTarget = <HTMLInputElement>event.target;
+    if (eventTarget.nodeName === "INPUT") {
+      validateInput({
+        value: eventTarget.value,
+        type: eventTarget.type,
+        errorMsgSelecor: `${eventTarget.id}ErrMessage`,
+      });
+    }
+  }
+  clickHandler(event: Event) {
+    if (
+      event.target ===
+      document.getElementById(this.props.authorizeButton.props.id)
+    ) {
+      const form = document.forms.namedItem("authorizeForm");
+      const formData: { [key: string]: string } = {};
+      const formDataArray = Array.from(form!.elements) as HTMLInputElement[];
+      formDataArray.forEach((element) => {
+        formData[element.id] = element.value;
+      });
+      console.log(formData);
+    }
   }
   render() {
     const template = Handlebars.compile(authorizeTmpl);
@@ -36,7 +67,7 @@ export class Authorize extends Block {
       loginInput: this.props.loginInput.render(),
       passwordInput: this.props.passwordInput.render(),
       authorizeButton: this.props.authorizeButton.render(),
-      registerButton: this.props.registerButton.render()
+      registerButton: this.props.registerButton.render(),
     });
   }
 }

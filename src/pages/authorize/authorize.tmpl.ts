@@ -1,7 +1,7 @@
 const authorizeTmpl = `
     <div class="form">
         <h1 class="form__title">Вход</h1>
-        <form class="form__container">
+        <form name=authorizeForm class="form__container">
             {{{loginInput}}}
             {{{passwordInput}}}
         </form>

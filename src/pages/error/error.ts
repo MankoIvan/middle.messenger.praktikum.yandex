@@ -7,6 +7,7 @@ export class Error extends Block {
   constructor(props: { code: string; message: string;}) {
     super("div", {
       backButton: new Button({
+        id: "backButton",
         text: "Назад к чатам",
         type: 'button',
         style: 'main',

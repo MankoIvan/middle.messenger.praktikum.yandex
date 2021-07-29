@@ -50,11 +50,13 @@ export class Register extends Block {
         message: "Пароли не совпадают",
       }),
       registerButton: new Button({
+        id: "registerButton",
         text: "Зарегистрироваться",
         type: 'submit',
         style: 'main',
       }),
       authorizeButton: new Button({
+        id: "authorizeButton",
         text: "Войти",
         type: 'button',
       })

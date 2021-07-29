@@ -1,4 +1,4 @@
 const buttonTmpl = `
-    <button class="button {{style}}" type="{{type}}">{{text}}</button>
+    <button id={{id}} class="button {{style}}" type="{{type}}">{{text}}</button>
 `;
 export { buttonTmpl };
