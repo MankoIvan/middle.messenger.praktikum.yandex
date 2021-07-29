@@ -6,7 +6,7 @@ import { registerTmpl } from "./register.tmpl";
 
 export class Register extends Block {
   constructor() {
-    super("container", {
+    super("div", {
       emailInput: new FormPiece({
         name: "email",
         label: "Почта",

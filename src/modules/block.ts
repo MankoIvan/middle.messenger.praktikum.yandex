@@ -48,6 +48,10 @@ export default class Block {
     const { tagName } = this._meta;
     this._element = this._createDocumentElement(tagName);
   }
+  
+  _createDocumentElement(tagName: string) {
+    return document.createElement(tagName);
+  }
 
   init() {
     this._createResources();
@@ -89,6 +93,7 @@ export default class Block {
     const block: string = this.render();
     this._removeEvents();
     this._element.innerHTML = block;
+    //his._element.addEventListener("click", e => console.log(e))
     this._addEvents()
   }
 
@@ -123,10 +128,6 @@ export default class Block {
         throw new Error("Нет прав");
       },
     });
-  }
-
-  _createDocumentElement(tagName: string) {
-    return document.createElement(tagName);
   }
 
   show() {
