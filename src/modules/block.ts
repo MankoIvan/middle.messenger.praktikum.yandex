@@ -87,7 +87,9 @@ export default class Block {
 
   _render() {
     const block: string = this.render();
+    this._removeEvents();
     this._element.innerHTML = block;
+    this._addEvents()
   }
 
   render(): string {
@@ -133,5 +135,21 @@ export default class Block {
 
   hide() {
     this.getContent().style.display = "none";
+  }
+
+  _addEvents() {
+    const {events = {}} = this.props;
+
+    Object.keys(events).forEach(eventName => {
+      this._element.addEventListener(eventName, events[eventName]);
+    });
+  }
+
+  _removeEvents() {
+    const {events = {}} = this.props;
+
+    Object.keys(events).forEach(eventName => {
+      this._element.removeEventListener(eventName, events[eventName]);
+    });
   }
 }
