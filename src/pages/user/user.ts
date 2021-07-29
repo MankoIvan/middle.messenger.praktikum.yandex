@@ -44,16 +44,19 @@ export class User extends Block {
         message: "Неправильный формат имени",
       }),
       saveButton: new Button({
+        id: "saveButton",
         text: "Сохранить",
         type: 'submit',
         style: 'main',
       }),
       changePasswordButton: new Button({
+        id: "changePasswordButton",
         text: "Изменить пароль",
         type: 'button',
         style: 'main',
       }),
       goBackButton: new Button({
+        id: "goBackButton",
         text: "Выйти",
         type: 'button',
         style: 'alert',
