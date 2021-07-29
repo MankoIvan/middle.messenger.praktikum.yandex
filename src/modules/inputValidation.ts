@@ -3,5 +3,5 @@ export function validateInput(params: {
     type: string,
     errorMsgSelecor: string
 }) {
-
+ 
 }
