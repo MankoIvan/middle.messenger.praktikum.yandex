@@ -8,10 +8,9 @@ export default class Block {
     FLOW_RENDER: "flow:render",
   };
   eventBus: () => EventBus;
-  props: {[key: string]: any};
-  _meta: {tagName: string, props: {[key: string]: any}};
+  props: { [key: string]: any };
+  _meta: { tagName: string; props: { [key: string]: any } };
   _element: HTMLElement;
-
 
   //_element = null;
 
@@ -48,7 +47,7 @@ export default class Block {
     const { tagName } = this._meta;
     this._element = this._createDocumentElement(tagName);
   }
-  
+
   _createDocumentElement(tagName: string) {
     return document.createElement(tagName);
   }
@@ -65,7 +64,10 @@ export default class Block {
 
   componentDidMount() {}
 
-  _componentDidUpdate(oldProps: {[key: string]: any}, newProps: {[key: string]: any}) {
+  _componentDidUpdate(
+    oldProps: { [key: string]: any },
+    newProps: { [key: string]: any }
+  ) {
     const response = this.componentDidUpdate(oldProps, newProps);
     if (!response) {
       return;
@@ -73,11 +75,14 @@ export default class Block {
     this._render();
   }
 
-  componentDidUpdate(oldProps: {[key: string]: any}, newProps: {[key: string]: any}) {
+  componentDidUpdate(
+    oldProps: { [key: string]: any },
+    newProps: { [key: string]: any }
+  ) {
     return oldProps !== newProps;
   }
 
-  setProps = (nextProps: {[key: string]: any}) => {
+  setProps = (nextProps: { [key: string]: any }) => {
     if (!nextProps) {
       return;
     }
@@ -94,11 +99,11 @@ export default class Block {
     this._removeEvents();
     this._element.innerHTML = block;
     //his._element.addEventListener("click", e => console.log(e))
-    this._addEvents()
+    this._addEvents();
   }
 
   render(): string {
-    return ''
+    return "";
   }
 
   getContent() {
@@ -109,14 +114,14 @@ export default class Block {
     const self = this;
 
     return new Proxy(props, {
-      get(target: {[key: string]: any}, prop: string) {
+      get(target: { [key: string]: any }, prop: string) {
         if (prop.indexOf("_") === 0) {
           throw new Error("Отказано в доступе");
         }
         const value = target[prop];
         return typeof value === "function" ? value.bind(target) : value;
       },
-      set(target: {[key: string]: any[]}, prop: string, value: any) {
+      set(target: { [key: string]: any[] }, prop: string, value: any) {
         if (prop.indexOf("_") === 0) {
           throw new Error("Нет прав");
         }
@@ -139,17 +144,17 @@ export default class Block {
   }
 
   _addEvents() {
-    const {events = {}} = this.props;
+    const { events = {} } = this.props;
 
-    Object.keys(events).forEach(eventName => {
+    Object.keys(events).forEach((eventName) => {
       this._element.addEventListener(eventName, events[eventName]);
     });
   }
 
   _removeEvents() {
-    const {events = {}} = this.props;
+    const { events = {} } = this.props;
 
-    Object.keys(events).forEach(eventName => {
+    Object.keys(events).forEach((eventName) => {
       this._element.removeEventListener(eventName, events[eventName]);
     });
   }

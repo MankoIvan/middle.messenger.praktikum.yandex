@@ -58,7 +58,7 @@ export class Authorize extends Block {
           value: element.value,
           type: element.name,
           errorMsgSelecor: `${element.id}ErrMessage`,
-        })
+        });
         formData[element.id] = element.value;
       });
       console.log(formData);

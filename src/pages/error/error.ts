@@ -4,20 +4,20 @@ import { Button } from "../../components/button/button";
 import { errorTmpl } from "./error.tmpl";
 
 export class Error extends Block {
-  constructor(props: { code: string; message: string;}) {
+  constructor(props: { code: string; message: string }) {
     super("div", {
       backButton: new Button({
         id: "backButton",
         text: "Назад к чатам",
-        type: 'button',
-        style: 'main',
+        type: "button",
+        style: "main",
       }),
       events: {
         click: (event: Event) => {
-            console.log(event)
-        }
+          console.log(event);
+        },
       },
-      ...props
+      ...props,
     });
   }
   render() {
@@ -25,7 +25,7 @@ export class Error extends Block {
     return template({
       backButton: this.props.backButton.render(),
       code: this.props.code,
-      message: this.props.message
+      message: this.props.message,
     });
   }
 }

@@ -46,13 +46,13 @@ export class Register extends Block {
       registerButton: new Button({
         id: "registerButton",
         text: "Зарегистрироваться",
-        type: 'submit',
-        style: 'main',
+        type: "submit",
+        style: "main",
       }),
       authorizeButton: new Button({
         id: "authorizeButton",
         text: "Войти",
-        type: 'button',
+        type: "button",
       }),
       events: {
         click: (event: Event) => this.clickHandler(event),
@@ -83,11 +83,12 @@ export class Register extends Block {
           value: element.value,
           type: element.name,
           errorMsgSelecor: `${element.id}ErrMessage`,
-        })
+        });
         formData[element.id] = element.value;
       });
       if (formData.password !== formData.password_check) {
-        document.getElementById("password_checkErrMessage")!.innerText = "Пароли не совпадают";
+        document.getElementById("password_checkErrMessage")!.innerText =
+          "Пароли не совпадают";
       }
       console.log(formData);
     }
@@ -103,7 +104,7 @@ export class Register extends Block {
       passwordInput: this.props.passwordInput.render(),
       passwordCheckInput: this.props.passwordCheckInput.render(),
       registerButton: this.props.registerButton.render(),
-      authorizeButton: this.props.authorizeButton.render()
+      authorizeButton: this.props.authorizeButton.render(),
     });
   }
 }
