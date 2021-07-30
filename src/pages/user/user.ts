@@ -41,20 +41,20 @@ export class User extends Block {
       saveButton: new Button({
         id: "saveButton",
         text: "Сохранить",
-        type: 'submit',
-        style: 'main',
+        type: "submit",
+        style: "main",
       }),
       changePasswordButton: new Button({
         id: "changePasswordButton",
         text: "Изменить пароль",
-        type: 'button',
-        style: 'main',
+        type: "button",
+        style: "main",
       }),
       goBackButton: new Button({
         id: "goBackButton",
         text: "Выйти",
-        type: 'button',
-        style: 'alert',
+        type: "button",
+        style: "alert",
       }),
       events: {
         click: (event: Event) => this.clickHandler(event),
@@ -74,8 +74,7 @@ export class User extends Block {
   }
   clickHandler(event: Event) {
     if (
-      event.target ===
-      document.getElementById(this.props.saveButton.props.id)
+      event.target === document.getElementById(this.props.saveButton.props.id)
     ) {
       const form = document.forms.namedItem("userForm");
       const formData: { [key: string]: string } = {};
@@ -85,7 +84,7 @@ export class User extends Block {
           value: element.value,
           type: element.name,
           errorMsgSelecor: `${element.id}ErrMessage`,
-        })
+        });
         formData[element.id] = element.value;
       });
       console.log(formData);
@@ -102,7 +101,7 @@ export class User extends Block {
       chatName: this.props.chatName.render(),
       saveButton: this.props.saveButton.render(),
       changePasswordButton: this.props.changePasswordButton.render(),
-      goBackButton: this.props.goBackButton.render()
+      goBackButton: this.props.goBackButton.render(),
     });
   }
 }

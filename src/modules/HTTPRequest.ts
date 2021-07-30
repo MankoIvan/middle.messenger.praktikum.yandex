@@ -8,11 +8,11 @@ enum METHODS {
 type Options = {
   method?: string;
   headers?: Record<string, string>;
-  data?: {[key: string]: unknown};
+  data?: { [key: string]: unknown };
   timeout?: number;
 };
 
-function queryStringify(data: {[key: string]: unknown}) {
+function queryStringify(data: { [key: string]: unknown }) {
   let strigified: string = "?";
   Object.keys(data).forEach((item) => {
     strigified += `${item}=${data[item]}&`;

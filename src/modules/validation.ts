@@ -5,7 +5,6 @@ export function validateInput(params: {
   type: string;
   errorMsgSelecor: string;
 }) {
-    console.log(params)
   let valid: Boolean = false;
   const { value, type, errorMsgSelecor } = params;
   const errorMsgContainer = document.getElementById(errorMsgSelecor);
