@@ -1,7 +1,7 @@
 const registerTmpl = `
     <div class="form">
         <h1 class="form__title">Регистрация</h1>
-        <form class="form__container">
+        <form name="registerForm" class="form__container">
           {{{emailInput}}}
           {{{loginInput}}}
           {{{firstNameInput}}}

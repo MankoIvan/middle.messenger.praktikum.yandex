@@ -3,6 +3,7 @@ import Block from "../../modules/block";
 import { Button } from "../../components/button/button";
 import { FormPiece } from "../../components/formPiece/formPiece";
 import { registerTmpl } from "./register.tmpl";
+import { validateInput } from "../../modules/validation";
 
 export class Register extends Block {
   constructor() {
@@ -11,43 +12,36 @@ export class Register extends Block {
         name: "email",
         label: "Почта",
         type: "email",
-        message: "Неправильный формат почты",
       }),
       loginInput: new FormPiece({
         name: "login",
         label: "Логин",
         type: "text",
-        message: "Данный логин уже занят",
       }),
       firstNameInput: new FormPiece({
         name: "first_name",
         label: "Имя",
         type: "text",
-        message: "Неправильный формат имени",
       }),
       secondNameInput: new FormPiece({
         name: "second_name",
         label: "Фамилия",
         type: "text",
-        message: "Неправильный формат фамилии",
       }),
       phoneInput: new FormPiece({
         name: "phone",
         label: "Телефон",
         type: "tel",
-        message: "Неправильный формат телефона",
       }),
       passwordInput: new FormPiece({
         name: "password",
         label: "Пароль",
         type: "password",
-        message: "Неправильный формат пароля",
       }),
       passwordCheckInput: new FormPiece({
         name: "password_check",
         label: "Пароль (еще раз)",
         type: "password",
-        message: "Пароли не совпадают",
       }),
       registerButton: new Button({
         id: "registerButton",
@@ -59,8 +53,44 @@ export class Register extends Block {
         id: "authorizeButton",
         text: "Войти",
         type: 'button',
-      })
+      }),
+      events: {
+        click: (event: Event) => this.clickHandler(event),
+        focusout: (event: Event) => this.validateOnBlur(event),
+      },
     });
+  }
+  validateOnBlur(event: Event) {
+    const eventTarget = <HTMLInputElement>event.target;
+    if (eventTarget.nodeName === "INPUT") {
+      validateInput({
+        value: eventTarget.value,
+        type: eventTarget.name,
+        errorMsgSelecor: `${eventTarget.id}ErrMessage`,
+      });
+    }
+  }
+  clickHandler(event: Event) {
+    if (
+      event.target ===
+      document.getElementById(this.props.registerButton.props.id)
+    ) {
+      const form = document.forms.namedItem("registerForm");
+      const formData: { [key: string]: string } = {};
+      const formDataArray = Array.from(form!.elements) as HTMLInputElement[];
+      formDataArray.forEach((element) => {
+        validateInput({
+          value: element.value,
+          type: element.name,
+          errorMsgSelecor: `${element.id}ErrMessage`,
+        })
+        formData[element.id] = element.value;
+      });
+      if (formData.password !== formData.password_check) {
+        document.getElementById("password_checkErrMessage")!.innerText = "Пароли не совпадают";
+      }
+      console.log(formData);
+    }
   }
   render() {
     const template = Handlebars.compile(registerTmpl);

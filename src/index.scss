@@ -182,6 +182,10 @@ body {
             line-height: 13px;   
         }
         
+        &__error-placeholder {
+            height: 8px;
+        }
+
         &__error {
             @extend .resetParagraph;
             color: $formErrorColor;
