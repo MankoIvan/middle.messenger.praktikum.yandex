@@ -4,7 +4,7 @@ const userTmpl = `
         <div class="form__userImg">
                 <p class="form__userImg-coverText">Изменить<br>аватар</p>
         </div>
-        <form class="form__container">
+        <form name="userForm" class="form__container">
           {{{emailInput}}}
           {{{loginInput}}}
           {{{firstNameInput}}}

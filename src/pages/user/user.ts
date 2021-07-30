@@ -3,6 +3,7 @@ import Block from "../../modules/block";
 import { Button } from "../../components/button/button";
 import { FormPiece } from "../../components/formPiece/formPiece";
 import { userTmpl } from "./user.tmpl";
+import { validateInput } from "../../modules/validation";
 
 export class User extends Block {
   constructor() {
@@ -11,37 +12,31 @@ export class User extends Block {
         name: "email",
         label: "Почта",
         type: "email",
-        message: "Неправильный формат почты",
       }),
       loginInput: new FormPiece({
         name: "login",
         label: "Логин",
         type: "text",
-        message: "Данный логин уже занят",
       }),
       firstNameInput: new FormPiece({
         name: "first_name",
         label: "Имя",
         type: "text",
-        message: "Неправильный формат имени",
       }),
       secondNameInput: new FormPiece({
         name: "second_name",
         label: "Фамилия",
         type: "text",
-        message: "Неправильный формат фамилии",
       }),
       phoneInput: new FormPiece({
         name: "phone",
         label: "Телефон",
         type: "tel",
-        message: "Неправильный формат телефона",
       }),
       chatName: new FormPiece({
         name: "chat_name",
         label: "Имя в чате",
         type: "text",
-        message: "Неправильный формат имени",
       }),
       saveButton: new Button({
         id: "saveButton",
@@ -60,8 +55,41 @@ export class User extends Block {
         text: "Выйти",
         type: 'button',
         style: 'alert',
-      })
+      }),
+      events: {
+        click: (event: Event) => this.clickHandler(event),
+        focusout: (event: Event) => this.validateOnBlur(event),
+      },
     });
+  }
+  validateOnBlur(event: Event) {
+    const eventTarget = <HTMLInputElement>event.target;
+    if (eventTarget.nodeName === "INPUT") {
+      validateInput({
+        value: eventTarget.value,
+        type: eventTarget.name,
+        errorMsgSelecor: `${eventTarget.id}ErrMessage`,
+      });
+    }
+  }
+  clickHandler(event: Event) {
+    if (
+      event.target ===
+      document.getElementById(this.props.saveButton.props.id)
+    ) {
+      const form = document.forms.namedItem("userForm");
+      const formData: { [key: string]: string } = {};
+      const formDataArray = Array.from(form!.elements) as HTMLInputElement[];
+      formDataArray.forEach((element) => {
+        validateInput({
+          value: element.value,
+          type: element.name,
+          errorMsgSelecor: `${element.id}ErrMessage`,
+        })
+        formData[element.id] = element.value;
+      });
+      console.log(formData);
+    }
   }
   render() {
     const template = Handlebars.compile(userTmpl);

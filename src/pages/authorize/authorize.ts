@@ -3,7 +3,7 @@ import Block from "../../modules/block";
 import { Button } from "../../components/button/button";
 import { FormPiece } from "../../components/formPiece/formPiece";
 import { authorizeTmpl } from "./authorize.tmpl";
-import { validateInput } from "../../modules/inputValidation";
+import { validateInput } from "../../modules/validation";
 
 export class Authorize extends Block {
   constructor() {
@@ -12,13 +12,11 @@ export class Authorize extends Block {
         name: "login",
         label: "Логин",
         type: "text",
-        message: "Неверный логин",
       }),
       passwordInput: new FormPiece({
         name: "password",
         label: "Пароль",
         type: "password",
-        message: "Неверный пароль",
       }),
       authorizeButton: new Button({
         id: "authorizeButton",
@@ -42,7 +40,7 @@ export class Authorize extends Block {
     if (eventTarget.nodeName === "INPUT") {
       validateInput({
         value: eventTarget.value,
-        type: eventTarget.type,
+        type: eventTarget.name,
         errorMsgSelecor: `${eventTarget.id}ErrMessage`,
       });
     }
@@ -56,6 +54,11 @@ export class Authorize extends Block {
       const formData: { [key: string]: string } = {};
       const formDataArray = Array.from(form!.elements) as HTMLInputElement[];
       formDataArray.forEach((element) => {
+        validateInput({
+          value: element.value,
+          type: element.name,
+          errorMsgSelecor: `${element.id}ErrMessage`,
+        })
         formData[element.id] = element.value;
       });
       console.log(formData);
