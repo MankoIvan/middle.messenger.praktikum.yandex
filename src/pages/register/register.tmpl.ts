@@ -16,4 +16,4 @@ const registerTmpl = `
         </div>
     </div>
 `;
-export { registerTmpl };
+export {registerTmpl};
