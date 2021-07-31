@@ -19,4 +19,4 @@ const userTmpl = `
         </div>
     </div>
 `;
-export { userTmpl };
+export {userTmpl};

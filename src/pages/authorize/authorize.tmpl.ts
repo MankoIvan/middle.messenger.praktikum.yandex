@@ -11,4 +11,4 @@ const authorizeTmpl = `
         </div>
     </div>
 `;
-export { authorizeTmpl };
+export {authorizeTmpl};

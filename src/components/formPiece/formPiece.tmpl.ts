@@ -7,4 +7,4 @@ const formPieceTmpl = `
         </div>
     </div>
 `;
-export { formPieceTmpl };
+export {formPieceTmpl};

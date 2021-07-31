@@ -5,4 +5,4 @@ const errorTmpl = `
         {{{backButton}}}
     </div>
 `;
-export { errorTmpl };
+export {errorTmpl};

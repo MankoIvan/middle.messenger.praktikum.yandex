@@ -1,19 +1,20 @@
-import Handlebars from "handlebars";
-import Block from "../../modules/block";
-import { buttonTmpl } from "./button.tmpl";
+import Handlebars from 'handlebars';
+import Block from '../../modules/block';
+import {buttonTmpl} from './button.tmpl';
 
 export class Button extends Block {
-  constructor(props: {
+	constructor(props: {
     id: string;
     text: string;
     type?: string;
     style?: string;
   }) {
-    props.style = props.style ? `button_${props.style}` : "";
-    super("div", props);
-  }
-  render() {
-    const template = Handlebars.compile(buttonTmpl);
-    return template(this.props);
-  }
+		props.style = props.style ? `button_${props.style}` : '';
+		super('div', props);
+	}
+
+	render() {
+		const template = Handlebars.compile(buttonTmpl);
+		return template(this.props);
+	}
 }
