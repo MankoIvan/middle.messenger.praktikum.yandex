@@ -1,193 +1,191 @@
 @import "styles/variables";
 
 body {
-    margin: 0;
+  margin: 0;
 }
 
 #root {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-
-    background-color: $backgroundColor;
-
-    font-family: $fontFamily;
-    color: $textColor;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: $backgroundColor;
+  font-family: $fontFamily;
+  color: $textColor;
 }
 
 .resetParagraph {
-    display: block;
-    margin-block-start: 0;
-    margin-block-end: 0;
+  display: block;
+  margin-block-start: 0;
+  margin-block-end: 0;
 }
+
 .resetButton {
-    display: inline-block;
-    -webkit-appearance: none;
-    -moz-appearance: none;
-    appearance: none;
-
-    margin: 0;
-    padding: 0;
-    border: none;
-
-    background-color: $buttonDefalutColor;
-
-    font-family: $fontFamily;
-    font-weight: normal;
-    font-size: inherit;
-    text-decoration: none;
-
-    cursor: pointer;
-  }
+  display: inline-block;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  margin: 0;
+  padding: 0;
+  border: none;
+  background-color: $buttonDefalutColor;
+  font-family: $fontFamily;
+  font-weight: normal;
+  font-size: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
 
 .error {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 
-    &__code {
-        @extend .resetParagraph;
-        font-size: 40px;
-        line-height: 40px;
-        font-weight: 500;
-        margin-bottom: 20px;
-    }
+  &__code {
+    @extend .resetParagraph;
 
-    &__message {
-        @extend .resetParagraph;
-        font-size: 20px;
-        line-height: 20px;
-        font-weight: 500;
-        margin-bottom: 70px;
-    }
+    font-size: 40px;
+    line-height: 40px;
+    font-weight: 500;
+    margin-bottom: 20px;
+  }
+
+  &__message {
+    @extend .resetParagraph;
+
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: 500;
+    margin-bottom: 70px;
+  }
 }
 
 .button {
-    @extend .resetButton;
-    width: auto;
-    height: 37px;
-    margin: 5px;
-    padding: 0 8px;
-    border-radius: 8px;
+  @extend .resetButton;
 
-    background-color: $buttonDefalutColor;
-    color: $textColor;
+  width: auto;
+  height: 37px;
+  margin: 5px;
+  padding: 0 8px;
+  border-radius: 8px;
+  background-color: $buttonDefalutColor;
+  color: $textColor;
+
+  &:hover {
+    background-color: $buttonDefalutHoverColor;
+  }
+
+  &_main {
+    width: 280px;
+    background-color: $buttonMainColor;
+    color: $buttonMainTextColor;
 
     &:hover {
-        background-color: $buttonDefalutHoverColor;
+      background-color: $buttonMainHoverColor;
     }
+  }
 
-    &_main {
-        width: 280px;
-        background-color: $buttonMainColor;
-        color: $buttonMainTextColor;
+  &_alert {
+    width: 280px;
+    background-color: $buttonAlertColor;
+    color: $buttonAlertTextColor;
 
-        &:hover {
-            background-color: $buttonMainHoverColor;
-        }
+    &:hover {
+      background-color: $buttonAlertHoverColor;
     }
-
-    &_alert {
-        width: 280px;
-        background-color: $buttonAlertColor;
-        color: $buttonAlertTextColor;
-
-        &:hover {
-            background-color: $buttonAlertHoverColor;
-        }
-    }
+  }
 }
 
 .form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  width: 340px;
+  min-height: 450px;
+  border-radius: 12px;
+  padding: 30px;
+  background-color: $formBackgroundColor;
+  box-shadow: 0 0 6px rgba(0, 0, 0, 0.14);
+
+  &__container {
+    width: 100%;
+  }
+
+  &__title {
+    @extend .resetParagraph;
+
+    margin: 20px;
+    font-size: 20px;
+    line-height: 20px;
+    font-weight: 500;
+  }
+
+  &__buttons {
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: space-between;
-    box-sizing: border-box;
-    
-    width: 340px;
-    min-height: 450px;
-    border-radius: 12px;
-    padding: 30px;
+  }
 
-    background-color: $formBackgroundColor;
-    box-shadow: 0px 0px 6px rgba(0, 0, 0, 0.14);
+  &__userImg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 130px;
+    width: 130px;
+    border-radius: 50%;
+    background-image: url(./assets/img/user_pic.jpg);
+    background-size: contain;
+    cursor: pointer;
 
-    &__container {
-        width: 100%;
+    &-coverText {
+      opacity: 0.7;
+      text-align: center;
+      display: none;
     }
 
-    &__title {
-        @extend .resetParagraph;
-        margin: 20px;
-        font-size: 20px;
-        line-height: 20px;
-        font-weight: 500;
+    &:hover &-coverText {
+      display: block;
+    }
+  }
+
+  &-piece {
+    width: 100%;
+    padding: 8px 0;
+
+    &__label {
+      @extend .resetParagraph;
+
+      color: $formLableColor;
+      font-size: 9px;
+      line-height: 9px;
+      font-weight: 500;
     }
 
-    &__buttons {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
+    &__input {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid $inputColor;
+      color: $textColor;
+      font-weight: 500;
+      font-size: 13px;
+      line-height: 13px;
     }
 
-    &__userImg {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-
-        height: 130px;
-        width: 130px;
-        border-radius: 50%;
-
-        background-image: url(./assets/img/user_pic.jpg);
-        background-size: contain;
-
-        cursor: pointer;  
-
-        &-coverText {
-            opacity: .7;
-            text-align: center;
-            display: none;
-        }
-
-        &:hover &-coverText{
-            display: block;
-        }
+    &__error-placeholder {
+      height: 8px;
     }
 
-    &-piece {
-        width: 100%;
-        padding: 8px 0;
+    &__error {
+      @extend .resetParagraph;
 
-        &__label {
-            @extend .resetParagraph;
-            color: $formLableColor;
-            font-size: 9px;
-            line-height: 9px;
-            font-weight: 500;
-        }
-
-        &__input {
-            width: 100%;
-            border: none;
-            border-bottom: 1px solid $inputColor;   
-
-            color: $textColor;
-            font-weight: 500;
-            font-size: 13px;
-            line-height: 13px;   
-        }
-        
-        &__error {
-            @extend .resetParagraph;
-            color: $formErrorColor;
-            font-size: 8px;
-            line-height: 8px;
-            font-weight: normal;
-        }
+      color: $formErrorColor;
+      font-size: 8px;
+      line-height: 8px;
+      font-weight: normal;
     }
+  }
 }
