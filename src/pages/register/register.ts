@@ -75,10 +75,10 @@ export class Register extends Block {
 	clickHandler(event: Event) {
 		if (
 			event.target
-      === document.getElementById(this.props.registerButton.props.id)
+			=== document.getElementById(this.props.registerButton.props.id)
 		) {
 			const form = document.forms.namedItem('registerForm');
-			const formData: { [key: string]: string } = {};
+			const formData: {[key: string]: string} = {};
 			const formDataArray = Array.from(form!.elements) as HTMLInputElement[];
 			formDataArray.forEach(element => {
 				validateInput({
@@ -89,8 +89,8 @@ export class Register extends Block {
 				formData[element.id] = element.value;
 			});
 			if (formData.password !== formData.password_check) {
-        document.getElementById('password_checkErrMessage')!.innerText
-          = 'Пароли не совпадают';
+				document.getElementById('password_checkErrMessage')!.innerText
+					= 'Пароли не совпадают';
 			}
 
 			console.log(formData);
