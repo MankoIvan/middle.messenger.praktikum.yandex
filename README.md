@@ -37,4 +37,4 @@
 - добавлены линтеры (ESLint и Stylelint)
 
 ## Pull requests
-- https://github.com/MankoIvan/middle.messenger.praktikum.yandex/pull/7 - спринт 2
+- https://github.com/MankoIvan/middle.messenger.praktikum.yandex/pull/7 - спринт 2 
