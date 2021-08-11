@@ -7,7 +7,7 @@ import {validateInput} from '../../modules/validation';
 
 export class User extends Block {
 	constructor() {
-		super('div', {
+		super('layout', {
 			emailInput: new FormPiece({
 				name: 'email',
 				label: 'Почта',
@@ -50,11 +50,17 @@ export class User extends Block {
 				type: 'button',
 				style: 'main',
 			}),
-			goBackButton: new Button({
-				id: 'goBackButton',
-				text: 'Выйти',
+			exitButton: new Button({
+				id: 'exitButton',
+				text: 'Выйти из профиля',
 				type: 'button',
 				style: 'alert',
+			}),
+			backButton: new Button({
+				id: 'backButton',
+				text: 'Назад к чатам',
+				type: 'button',
+				style: 'main',
 			}),
 			events: {
 				click: (event: Event) => this.clickHandler(event),
@@ -104,7 +110,8 @@ export class User extends Block {
 			chatName: this.props.chatName.render(),
 			saveButton: this.props.saveButton.render(),
 			changePasswordButton: this.props.changePasswordButton.render(),
-			goBackButton: this.props.goBackButton.render(),
+			exitButton: this.props.exitButton.render(),
+			backButton: this.props.backButton.render(),
 		});
 	}
 }

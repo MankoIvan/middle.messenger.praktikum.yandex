@@ -7,7 +7,7 @@ import {validateInput} from '../../modules/validation';
 
 export class Register extends Block {
 	constructor() {
-		super('div', {
+		super('layout', {
 			emailInput: new FormPiece({
 				name: 'email',
 				label: 'Почта',

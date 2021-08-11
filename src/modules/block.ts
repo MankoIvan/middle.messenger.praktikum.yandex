@@ -100,7 +100,6 @@ export default class Block {
 		const block: string = this.render();
 		this._removeEvents();
 		this._element.innerHTML = block;
-		// His._element.addEventListener("click", e => console.log(e))
 		this._addEvents();
 	}
 

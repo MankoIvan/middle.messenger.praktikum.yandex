@@ -7,7 +7,7 @@ import {validateInput} from '../../modules/validation';
 
 export class Authorize extends Block {
 	constructor() {
-		super('div', {
+		super('layout', {
 			loginInput: new FormPiece({
 				name: 'login',
 				label: 'Логин',
