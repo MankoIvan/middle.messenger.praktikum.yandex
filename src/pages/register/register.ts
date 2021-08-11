@@ -3,7 +3,7 @@ import Block from '../../modules/block';
 import {Button} from '../../components/button/button';
 import {FormPiece} from '../../components/formPiece/formPiece';
 import {registerTmpl} from './register.tmpl';
-import {validateInput} from '../../modules/validation';
+import {validateInput} from '../../modules/validation/validation';
 
 export class Register extends Block {
 	constructor() {

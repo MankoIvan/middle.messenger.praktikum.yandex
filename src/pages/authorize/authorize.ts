@@ -3,7 +3,7 @@ import Block from '../../modules/block';
 import {Button} from '../../components/button/button';
 import {FormPiece} from '../../components/formPiece/formPiece';
 import {authorizeTmpl} from './authorize.tmpl';
-import {validateInput} from '../../modules/validation';
+import {validateInput} from '../../modules/validation/validation';
 
 export class Authorize extends Block {
 	constructor() {

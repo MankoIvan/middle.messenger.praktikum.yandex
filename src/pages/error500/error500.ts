@@ -1,10 +1,10 @@
 import Handlebars from 'handlebars';
 import Block from '../../modules/block';
 import {Button} from '../../components/button/button';
-import {errorTmpl} from './error.tmpl';
+import {error500Tmpl} from './error500.tmpl';
 
-export class Error extends Block {
-	constructor(props: { code: string; message: string }) {
+export class Error500 extends Block {
+	constructor() {
 		super('layout', {
 			backButton: new Button({
 				id: 'backButton',
@@ -12,21 +12,13 @@ export class Error extends Block {
 				type: 'button',
 				style: 'main',
 			}),
-			events: {
-				click: (event: Event) => {
-					console.log(event);
-				},
-			},
-			...props,
 		});
 	}
 
 	render() {
-		const template = Handlebars.compile(errorTmpl);
+		const template = Handlebars.compile(error500Tmpl);
 		return template({
 			backButton: this.props.backButton.render(),
-			code: this.props.code,
-			message: this.props.message,
 		});
 	}
 }
