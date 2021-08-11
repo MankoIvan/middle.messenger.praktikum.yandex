@@ -25,7 +25,6 @@
     "build": "parcel build src/index.html",
     "start": "parcel build src/index.html && node ./server.ts",
     "lint": "npx eslint . --fix --ext .ts && npx stylelint --fix **/*.scss"
-
   },
   "repository": {
     "type": "git",

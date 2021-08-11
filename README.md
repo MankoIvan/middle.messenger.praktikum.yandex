@@ -6,15 +6,15 @@
 
 - запуск проекта в режиме разработчика `npm run dev`
 - сборка проекта `npm run build`
-- сборка проекта и запсук локального сервера `npm run start`
+- сборка проекта и запуск локального сервера `npm run start`
 - запуск линтеров `npm run lint`
 
 ## Netlify
 
-- https://stupefied-nobel-c31678.netlify.app/ - домашнаяя страница
-- https://stupefied-nobel-c31678.netlify.app/user - профиль
-- https://stupefied-nobel-c31678.netlify.app/authorize - авторизация
-- https://stupefied-nobel-c31678.netlify.app/register - регистрация
+- https://stupefied-nobel-c31678.netlify.app/ -авторизация
+- https://stupefied-nobel-c31678.netlify.app/sign-up - регистрация
+- https://stupefied-nobel-c31678.netlify.app/settings - профиль
+- https://stupefied-nobel-c31678.netlify.app/messenger - страница чатов
 - https://stupefied-nobel-c31678.netlify.app/500 - ошибка сервера
 - https://stupefied-nobel-c31678.netlify.app/any-other-url - 404
 
