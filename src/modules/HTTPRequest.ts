@@ -5,7 +5,7 @@ enum METHODS {
 	DELETE = 'DELETE',
 }
 
-type Options = {
+export type Options = {
 	method?: string;
 	headers?: Record<string, string>;
 	data?: {[key: string]: unknown};
@@ -24,17 +24,22 @@ function queryStringify(data: {[key: string]: unknown}) {
 queryStringify({a: 1, b: 2, c: {d: 123}, k: [1, 2, 3]});
 
 export default class HTTPTransport {
+	baseURL: string;
+	constructor(baseURL: string = '') {
+		this.baseURL = baseURL;
+	}
+
 	get = (url: string, options: Options = {}) =>
-		this.request(url, {...options, method: METHODS.GET}, options.timeout);
+		this.request(this.baseURL + url, {...options, method: METHODS.GET}, options.timeout);
 
 	put = (url: string, options: Options = {}) =>
-		this.request(url, {...options, method: METHODS.PUT}, options.timeout);
+		this.request(this.baseURL + url, {...options, method: METHODS.PUT}, options.timeout);
 
 	post = (url: string, options: Options = {}) =>
-		this.request(url, {...options, method: METHODS.POST}, options.timeout);
+		this.request(this.baseURL + url, {...options, method: METHODS.POST}, options.timeout);
 
 	delete = (url: string, options: Options = {}) =>
-		this.request(url, {...options, method: METHODS.DELETE}, options.timeout);
+		this.request(this.baseURL + url, {...options, method: METHODS.DELETE}, options.timeout);
 
 	request(url: string, options: Options, timeout: number = 5000) {
 		const {method = METHODS.GET, headers = {}, data = {}} = options;
