@@ -1,24 +1,37 @@
 const chatTmpl = `
-    <div class="user">
-        <h1 class="user__title">Профиль</h1>
-        <div class="user__img">
-                <p class="user__img-coverText">Изменить<br>аватар</p>
+    <div class="chat">
+      <div class="chat__menu">
+        <div class="chat__menu-top">
+          {{{newChatButton}}}    
+          {{{settingsButton}}}    
         </div>
-        <form name="userForm" class="form__container">
-          {{{emailInput}}}
-          {{{loginInput}}}
-          {{{firstNameInput}}}
-          {{{secondNameInput}}}
-          {{{phoneInput}}}
-          {{{chatName}}}
-        </form>
-        <div class="form__buttons">
-          {{{saveButton}}}
-          {{{changePasswordButton}}}
-          {{{exitButton}}}
-          <br/>
-          {{{backButton}}}
+        <div class="chat__menu-contacts">
+          {{{contactOne}}}
+          {{{contactTwo}}}
         </div>
+      </div>
+
+      <div class="chat__container">
+        <div class="chat__bar">
+          <div class="chat__bar-info">
+            <img class="chat__bar-image" src={{image}}>
+            <p class="chat__bar-contact">
+              {{#each contact}}
+                  <span>{{this}} </span>
+              {{/each}}
+            </p>
+          </div>
+          {{{chatSettingsButton}}}
+        </div>
+        <div class="chat__body">
+        
+        </div>
+        <div class="chat__input">
+          {{{chatAttachButton}}}
+          <textarea contenteditable="true" id="messageInput" class="chat__input-field"></textarea>
+          {{{chatSendButton}}}
+        </div>
+      </div>
     </div>
 `;
 export {chatTmpl};
