@@ -1,0 +1,3 @@
+const messageTmpl = `
+`;
+export {messageTmpl};

@@ -8,6 +8,7 @@ export class FormPiece extends Block {
     label: string;
     type: string;
     message?: string;
+	addSelector?: string;
   }) {
 		super('div', props);
 	}

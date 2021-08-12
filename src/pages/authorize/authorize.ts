@@ -4,6 +4,10 @@ import {Button} from '../../components/button/button';
 import {FormPiece} from '../../components/formPiece/formPiece';
 import {authorizeTmpl} from './authorize.tmpl';
 import {validateInput} from '../../modules/validation/validation';
+import Router from '../../modules/router/router';
+
+const router = new Router('root');
+const addSelector = 'auth';
 
 export class Authorize extends Block {
 	constructor() {
@@ -12,20 +16,22 @@ export class Authorize extends Block {
 				name: 'login',
 				label: 'Логин',
 				type: 'text',
+				addSelector,
 			}),
 			passwordInput: new FormPiece({
 				name: 'password',
 				label: 'Пароль',
 				type: 'password',
+				addSelector,
 			}),
-			authorizeButton: new Button({
-				id: 'authorizeButton',
+			authAuthorizeButton: new Button({
+				id: 'authAuthorizeButton',
 				text: 'Авторизоваться',
 				type: 'submit',
 				style: 'main',
 			}),
-			registerButton: new Button({
-				id: 'registerButton',
+			authRegisterButton: new Button({
+				id: 'authRegisterButton',
 				text: 'Нет аккаунта?',
 				type: 'button',
 			}),
@@ -42,7 +48,7 @@ export class Authorize extends Block {
 			validateInput({
 				value: eventTarget.value,
 				type: eventTarget.name,
-				errorMsgSelecor: `${eventTarget.id}ErrMessage`,
+				errorMsgSelecor: `${addSelector}${eventTarget.id}ErrMessage`,
 			});
 		}
 	}
@@ -50,7 +56,7 @@ export class Authorize extends Block {
 	clickHandler(event: Event) {
 		if (
 			event.target
-      === document.getElementById(this.props.authorizeButton.props.id)
+      === document.getElementById(this.props.authAuthorizeButton.props.id)
 		) {
 			const form = document.forms.namedItem('authorizeForm');
 			const formData: { [key: string]: string } = {};
@@ -59,11 +65,16 @@ export class Authorize extends Block {
 				validateInput({
 					value: element.value,
 					type: element.name,
-					errorMsgSelecor: `${element.id}ErrMessage`,
+					errorMsgSelecor: `${addSelector}${element.id}ErrMessage`,
 				});
 				formData[element.id] = element.value;
 			});
 			console.log(formData);
+		} else if (
+			event.target
+      === document.getElementById(this.props.authRegisterButton.props.id)
+		) {
+			router.go('/sign-up');
 		}
 	}
 
@@ -72,8 +83,8 @@ export class Authorize extends Block {
 		return template({
 			loginInput: this.props.loginInput.render(),
 			passwordInput: this.props.passwordInput.render(),
-			authorizeButton: this.props.authorizeButton.render(),
-			registerButton: this.props.registerButton.render(),
+			authAuthorizeButton: this.props.authAuthorizeButton.render(),
+			authRegisterButton: this.props.authRegisterButton.render(),
 		});
 	}
 }

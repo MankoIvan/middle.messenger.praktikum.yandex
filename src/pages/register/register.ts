@@ -4,6 +4,10 @@ import {Button} from '../../components/button/button';
 import {FormPiece} from '../../components/formPiece/formPiece';
 import {registerTmpl} from './register.tmpl';
 import {validateInput} from '../../modules/validation/validation';
+import Router from '../../modules/router/router';
+
+const router = new Router('root');
+const addSelector = 'reg';
 
 export class Register extends Block {
 	constructor() {
@@ -12,45 +16,52 @@ export class Register extends Block {
 				name: 'email',
 				label: 'Почта',
 				type: 'email',
+				addSelector,
 			}),
 			loginInput: new FormPiece({
 				name: 'login',
 				label: 'Логин',
 				type: 'text',
+				addSelector,
 			}),
 			firstNameInput: new FormPiece({
 				name: 'first_name',
 				label: 'Имя',
 				type: 'text',
+				addSelector,
 			}),
 			secondNameInput: new FormPiece({
 				name: 'second_name',
 				label: 'Фамилия',
 				type: 'text',
+				addSelector,
 			}),
 			phoneInput: new FormPiece({
 				name: 'phone',
 				label: 'Телефон',
 				type: 'tel',
+				addSelector,
 			}),
 			passwordInput: new FormPiece({
 				name: 'password',
 				label: 'Пароль',
 				type: 'password',
+				addSelector,
 			}),
 			passwordCheckInput: new FormPiece({
 				name: 'password_check',
 				label: 'Пароль (еще раз)',
 				type: 'password',
+				addSelector,
 			}),
-			registerButton: new Button({
-				id: 'registerButton',
+			regRegisterButton: new Button({
+				id: 'regRegisterButton',
 				text: 'Зарегистрироваться',
 				type: 'submit',
 				style: 'main',
 			}),
-			authorizeButton: new Button({
-				id: 'authorizeButton',
+			regAuthorizeButton: new Button({
+				id: 'regAuthorizeButton',
 				text: 'Войти',
 				type: 'button',
 			}),
@@ -67,7 +78,7 @@ export class Register extends Block {
 			validateInput({
 				value: eventTarget.value,
 				type: eventTarget.name,
-				errorMsgSelecor: `${eventTarget.id}ErrMessage`,
+				errorMsgSelecor: `${addSelector}${eventTarget.id}ErrMessage`,
 			});
 		}
 	}
@@ -75,7 +86,7 @@ export class Register extends Block {
 	clickHandler(event: Event) {
 		if (
 			event.target
-			=== document.getElementById(this.props.registerButton.props.id)
+			=== document.getElementById(this.props.regRegisterButton.props.id)
 		) {
 			const form = document.forms.namedItem('registerForm');
 			const formData: {[key: string]: string} = {};
@@ -84,7 +95,7 @@ export class Register extends Block {
 				validateInput({
 					value: element.value,
 					type: element.name,
-					errorMsgSelecor: `${element.id}ErrMessage`,
+					errorMsgSelecor: `${addSelector}${element.id}ErrMessage`,
 				});
 				formData[element.id] = element.value;
 			});
@@ -94,6 +105,11 @@ export class Register extends Block {
 			}
 
 			console.log(formData);
+		} else if (
+			event.target
+      === document.getElementById(this.props.regAuthorizeButton.props.id)
+		) {
+			router.go('/');
 		}
 	}
 
@@ -107,8 +123,8 @@ export class Register extends Block {
 			phoneInput: this.props.phoneInput.render(),
 			passwordInput: this.props.passwordInput.render(),
 			passwordCheckInput: this.props.passwordCheckInput.render(),
-			registerButton: this.props.registerButton.render(),
-			authorizeButton: this.props.authorizeButton.render(),
+			regRegisterButton: this.props.regRegisterButton.render(),
+			regAuthorizeButton: this.props.regAuthorizeButton.render(),
 		});
 	}
 }

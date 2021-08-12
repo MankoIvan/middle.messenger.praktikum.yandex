@@ -13,11 +13,11 @@ const userTmpl = `
           {{{chatName}}}
         </form>
         <div class="form__buttons">
-          {{{saveButton}}}
-          {{{changePasswordButton}}}
-          {{{exitButton}}}
+          {{{userSaveButton}}}
+          {{{userChangePasswordButton}}}
+          {{{userExitButton}}}
           <br/>
-          {{{backButton}}}
+          {{{userBackButton}}}
         </div>
     </div>
 `;

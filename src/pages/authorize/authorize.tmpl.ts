@@ -6,8 +6,8 @@ const authorizeTmpl = `
             {{{passwordInput}}}
         </form>
         <div class="form__buttons">
-            {{{authorizeButton}}}
-            {{{registerButton}}}
+            {{{authAuthorizeButton}}}
+            {{{authRegisterButton}}}
         </div>
     </div>
 `;

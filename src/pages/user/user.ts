@@ -4,7 +4,11 @@ import {Button} from '../../components/button/button';
 import {FormPiece} from '../../components/formPiece/formPiece';
 import {userTmpl} from './user.tmpl';
 import {validateInput} from '../../modules/validation/validation';
+import Router from '../../modules/router/router';
 
+const router = new Router('root');
+
+const addSelector = 'user';
 export class User extends Block {
 	constructor() {
 		super('layout', {
@@ -12,52 +16,58 @@ export class User extends Block {
 				name: 'email',
 				label: 'Почта',
 				type: 'email',
+				addSelector,
 			}),
 			loginInput: new FormPiece({
 				name: 'login',
 				label: 'Логин',
 				type: 'text',
+				addSelector,
 			}),
 			firstNameInput: new FormPiece({
 				name: 'first_name',
 				label: 'Имя',
 				type: 'text',
+				addSelector,
 			}),
 			secondNameInput: new FormPiece({
 				name: 'second_name',
 				label: 'Фамилия',
 				type: 'text',
+				addSelector,
 			}),
 			phoneInput: new FormPiece({
 				name: 'phone',
 				label: 'Телефон',
 				type: 'tel',
+				addSelector,
 			}),
 			chatName: new FormPiece({
 				name: 'chat_name',
 				label: 'Имя в чате',
 				type: 'text',
+				addSelector,
 			}),
-			saveButton: new Button({
-				id: 'saveButton',
+			userSaveButton: new Button({
+				id: 'userSaveButton',
 				text: 'Сохранить',
 				type: 'submit',
 				style: 'main',
 			}),
-			changePasswordButton: new Button({
-				id: 'changePasswordButton',
+			userChangePasswordButton: new Button({
+				id: 'userChangePasswordButton',
 				text: 'Изменить пароль',
 				type: 'button',
 				style: 'main',
 			}),
-			exitButton: new Button({
-				id: 'exitButton',
+			userExitButton: new Button({
+				id: 'userExitButton',
 				text: 'Выйти из профиля',
 				type: 'button',
 				style: 'alert',
 			}),
-			backButton: new Button({
-				id: 'backButton',
+			userBackButton: new Button({
+				id: 'userBackButton',
 				text: 'Назад к чатам',
 				type: 'button',
 				style: 'main',
@@ -75,14 +85,14 @@ export class User extends Block {
 			validateInput({
 				value: eventTarget.value,
 				type: eventTarget.name,
-				errorMsgSelecor: `${eventTarget.id}ErrMessage`,
+				errorMsgSelecor: `${addSelector}${eventTarget.id}ErrMessage`,
 			});
 		}
 	}
 
 	clickHandler(event: Event) {
 		if (
-			event.target === document.getElementById(this.props.saveButton.props.id)
+			event.target === document.getElementById(this.props.userSaveButton.props.id)
 		) {
 			const form = document.forms.namedItem('userForm');
 			const formData: { [key: string]: string } = {};
@@ -91,11 +101,16 @@ export class User extends Block {
 				validateInput({
 					value: element.value,
 					type: element.name,
-					errorMsgSelecor: `${element.id}ErrMessage`,
+					errorMsgSelecor: `${addSelector}${element.id}ErrMessage`,
 				});
 				formData[element.id] = element.value;
 			});
 			console.log(formData);
+		} else if (
+			event.target
+      === document.getElementById(this.props.userBackButton.props.id)
+		) {
+			router.go('/messenger');
 		}
 	}
 
@@ -108,10 +123,10 @@ export class User extends Block {
 			secondNameInput: this.props.secondNameInput.render(),
 			phoneInput: this.props.phoneInput.render(),
 			chatName: this.props.chatName.render(),
-			saveButton: this.props.saveButton.render(),
-			changePasswordButton: this.props.changePasswordButton.render(),
-			exitButton: this.props.exitButton.render(),
-			backButton: this.props.backButton.render(),
+			userSaveButton: this.props.userSaveButton.render(),
+			userChangePasswordButton: this.props.userChangePasswordButton.render(),
+			userExitButton: this.props.userExitButton.render(),
+			userBackButton: this.props.userBackButton.render(),
 		});
 	}
 }

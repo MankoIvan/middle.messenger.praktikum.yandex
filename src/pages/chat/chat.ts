@@ -1,8 +1,11 @@
 import Handlebars from 'handlebars';
 import Block from '../../modules/block';
 import {Button} from '../../components/button/button';
-import {Contact} from '../../components/contact/contact'
+import {Contact} from '../../components/contact/contact';
 import {chatTmpl} from './chat.tmpl';
+import Router from '../../modules/router/router';
+
+const router = new Router('root');
 
 export class Chat extends Block {
 	constructor() {
@@ -31,27 +34,39 @@ export class Chat extends Block {
 				id: 'chatSendButton',
 				text: '→',
 				type: 'button',
-				style: 'main-small'
+				style: 'main-small',
 			}),
 			contactOne: new Contact({
 				id: 'contactOne',
 				contact: ['Петя', 'Вася'],
-				image: 'https://pbs.twimg.com/profile_images/671465795365560320/TiQW_VCt_400x400.jpg',
-				message: "hello it's me",
+				image: 'http://placekitten.com/50/50',
+				message: 'hello it\'s me',
 				new: 3,
-				time: '12:01'
+				time: '12:01',
 			}),
 			contactTwo: new Contact({
 				id: 'contactOne',
 				contact: ['Саша'],
-				image: 'https://www.karusel-tv.ru/media/suit/256x256/media/broadcast_cover/2020/04/1586424937144045__.jpg',
-				message: "hello it's you",
-				time: '12:03'
+				image: 'http://placekitten.com/60/60',
+				message: 'hello it\'s you',
+				time: '12:03',
 			}),
+			events: {
+				click: (event: Event) => this.clickHandler(event),
+			},
 			active: true,
-			image: 'https://pbs.twimg.com/profile_images/671465795365560320/TiQW_VCt_400x400.jpg',
+			image: 'http://placekitten.com/50/50',
 			contact: ['Петя', 'Вася'],
 		});
+	}
+
+	clickHandler(event: Event) {
+		if (
+			event.target
+      === document.getElementById(this.props.settingsButton.props.id)
+		) {
+			router.go('/settings');
+		}
 	}
 
 	render() {
