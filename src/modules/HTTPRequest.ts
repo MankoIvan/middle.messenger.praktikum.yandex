@@ -21,8 +21,6 @@ function queryStringify(data: {[key: string]: unknown}) {
 	return strigified.slice(0, strigified.length - 1);
 }
 
-queryStringify({a: 1, b: 2, c: {d: 123}, k: [1, 2, 3]});
-
 export default class HTTPTransport {
 	baseURL: string;
 	constructor(baseURL: string = '') {
@@ -43,7 +41,6 @@ export default class HTTPTransport {
 
 	request(url: string, options: Options, timeout: number = 5000) {
 		const {method = METHODS.GET, headers = {}, data = {}} = options;
-
 		return new Promise((resolve, reject) => {
 			const xhr = new XMLHttpRequest();
 			xhr.open(
@@ -53,15 +50,18 @@ export default class HTTPTransport {
 					: url,
 			);
 
+			xhr.setRequestHeader('content-type', 'application/json');
 			Object.keys(headers).forEach(key => {
 				xhr.setRequestHeader(key, headers[key]);
 			});
 
+			xhr.withCredentials = true;
+
 			xhr.onload = function () {
 				if (xhr.status >= 200 && xhr.status < 300) {
-					resolve(xhr.response);
+					resolve(xhr);
 				} else {
-					reject(xhr.statusText);
+					reject(xhr);
 				}
 			};
 
@@ -74,7 +74,7 @@ export default class HTTPTransport {
 				xhr.send();
 			} else {
 				// @ts-ignore
-				xhr.send(data);
+				xhr.send(JSON.stringify(data));
 			}
 		});
 	}

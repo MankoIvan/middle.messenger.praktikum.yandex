@@ -5,6 +5,7 @@ import {FormPiece} from '../../components/formPiece/formPiece';
 import {userTmpl} from './user.tmpl';
 import {validateInput} from '../../modules/validation/validation';
 import Router from '../../modules/router/router';
+import {authRequester} from '../../modules/api/auth-api';
 
 const router = new Router('root');
 
@@ -111,6 +112,13 @@ export class User extends Block {
       === document.getElementById(this.props.userBackButton.props.id)
 		) {
 			router.go('/messenger');
+		} else if (
+			event.target
+      === document.getElementById(this.props.userExitButton.props.id)
+		) {
+			authRequester.logOut()
+				.then(() => router.go('/'))
+				.catch(data => console.log(JSON.parse(data.response)));
 		}
 	}
 

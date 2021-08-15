@@ -36,3 +36,5 @@ export class ChatAPI extends BaseAPI {
 		return chatAPIInstance.put('/users', options);
 	}
 }
+
+export const chatRequester = new ChatAPI();

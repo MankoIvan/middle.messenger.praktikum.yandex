@@ -5,6 +5,7 @@ import {FormPiece} from '../../components/formPiece/formPiece';
 import {authorizeTmpl} from './authorize.tmpl';
 import {validateInput} from '../../modules/validation/validation';
 import Router from '../../modules/router/router';
+import {authRequester} from '../../modules/api/auth-api';
 
 const router = new Router('root');
 const addSelector = 'auth';
@@ -56,23 +57,30 @@ export class Authorize extends Block {
 	clickHandler(event: Event) {
 		if (
 			event.target
-      === document.getElementById(this.props.authAuthorizeButton.props.id)
+			=== document.getElementById(this.props.authAuthorizeButton.props.id)
 		) {
+			let valid: Boolean = true;
 			const form = document.forms.namedItem('authorizeForm');
 			const formData: { [key: string]: string } = {};
 			const formDataArray = Array.from(form!.elements) as HTMLInputElement[];
 			formDataArray.forEach(element => {
-				validateInput({
+				valid = validateInput({
 					value: element.value,
 					type: element.name,
 					errorMsgSelecor: `${addSelector}${element.id}ErrMessage`,
-				});
+				}) ? valid : false;
 				formData[element.id] = element.value;
 			});
-			console.log(formData);
+			if (valid) {
+				authRequester.signIn({
+					data: formData,
+				})
+					.then(() => router.go('/messenger'))
+					.catch(data => console.log(JSON.parse(data.response)));
+			}
 		} else if (
 			event.target
-      === document.getElementById(this.props.authRegisterButton.props.id)
+			=== document.getElementById(this.props.authRegisterButton.props.id)
 		) {
 			router.go('/sign-up');
 		}
