@@ -26,7 +26,7 @@ export function validateInput(params: {
 			break;
 		case 'first_name':
 		case 'second_name':
-		case 'chat_name':
+		case 'display_name':
 			valid = regExps.name.test(value);
 			errorMsgContainer!.innerText = valid ? '' : errorMessages.name;
 			break;

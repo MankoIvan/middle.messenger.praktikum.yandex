@@ -8,6 +8,9 @@ const chatTmpl = `
         <div class="chat__menu-contacts">
           {{{contactOne}}}
           {{{contactTwo}}}
+          {{#each contactsMarkUp}}
+            {{{this}}}
+          {{/each}}
         </div>
       </div>
 

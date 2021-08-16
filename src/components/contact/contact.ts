@@ -4,11 +4,12 @@ import {contactTmpl} from './contact.tmpl';
 
 export class Contact extends Block {
 	constructor(props: {
-    id: string;
-    contact: string[];
+    id: number;
+	createdBy?: number;
+    title: string;
 	image?: string;
     message?: string;
-	new?: number;
+	new: number;
 	time?: string
   }) {
 		super('div', props);

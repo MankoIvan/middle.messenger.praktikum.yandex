@@ -3,9 +3,7 @@ const contactTmpl = `
         <img class="contact__image" src={{image}}>
         <div class="contact__body">
             <p class="contact__body-name">
-                {{#each contact}}
-                    <span>{{this}} </span>
-                {{/each}}
+                {{title}}
             </p>
             <p class="contact__body-message">{{message}}</p>
         </div>

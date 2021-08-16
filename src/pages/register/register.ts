@@ -122,6 +122,16 @@ export class Register extends Block {
 		}
 	}
 
+	componentDidMount() {
+		authRequester.getUser()
+			.then((res:XMLHttpRequest) => {
+				if (res.status === 200) {
+					router.go('/messenger');
+				}
+			})
+			.catch(data => console.log(JSON.parse(data.response)));
+	}
+
 	render() {
 		const template = Handlebars.compile(registerTmpl);
 		return template({
