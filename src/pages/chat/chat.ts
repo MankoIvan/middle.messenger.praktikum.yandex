@@ -58,7 +58,6 @@ export class Chat extends Block {
 			events: {
 				click: (event: Event) => this.clickHandler(event),
 			},
-			active: true,
 			image: 'http://placekitten.com/50/50',
 			contact: ['Петя', 'Вася'],
 		});
@@ -70,6 +69,13 @@ export class Chat extends Block {
 			=== document.getElementById(this.props.settingsButton.props.id)
 		) {
 			router.go('/settings');
+		} else if (event.target!.classList.contains('contact__body')) {
+			this.props.currentChat = event.target!.parentElement.id;
+			console.log(this.props.contacts[this.props.currentChat])
+			this.props.contact = this.props.contacts[this.props.currentChat].props.title;
+			this.props.image = this.props.contacts[this.props.currentChat].props.image;
+			// ЗДЕСЬ БУДЕТ ЗАПРОС НА СООБЩЕНИЯ
+			this.setProps(this.props);
 		}
 	}
 
@@ -115,7 +121,7 @@ export class Chat extends Block {
 			chatSendButton: this.props.chatSendButton.render(),
 			contactOne: this.props.contactOne.render(),
 			contactTwo: this.props.contactTwo.render(),
-			active: this.props.active,
+			currentChat: this.props.currentChat,
 			image: this.props.image,
 			contact: this.props.contact,
 			contactsMarkUp: this.props.contactsMarkUp,

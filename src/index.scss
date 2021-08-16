@@ -380,6 +380,7 @@ layout {
     flex: 1;
     height: 100%;
     padding: 0 10px;
+    cursor: pointer;
 
     &-name {
       @extend .resetParagraph;

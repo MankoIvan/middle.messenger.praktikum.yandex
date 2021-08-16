@@ -1,5 +1,5 @@
 const contactTmpl = `
-    <div class="contact" id="contact-{{id}}">
+    <div class="contact" id="{{id}}">
         <img class="contact__image" src={{image}}>
         <div class="contact__body">
             <p class="contact__body-name">

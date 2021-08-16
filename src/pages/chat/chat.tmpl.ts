@@ -15,14 +15,12 @@ const chatTmpl = `
       </div>
 
       <div class="chat__container">
-        {{#if active}}
+        {{#if currentChat}}
           <div class="chat__bar">
             <div class="chat__bar-info">
               <img class="chat__bar-image" src={{image}}>
               <p class="chat__bar-contact">
-                {{#each contact}}
-                    <span>{{this}} </span>
-                {{/each}}
+                {{contact}}
               </p>
             </div>
             {{{chatSettingsButton}}}
