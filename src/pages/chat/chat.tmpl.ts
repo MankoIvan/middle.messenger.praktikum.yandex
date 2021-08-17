@@ -5,6 +5,12 @@ const chatTmpl = `
           {{{newChatButton}}}    
           {{{settingsButton}}}    
         </div>
+        {{#if addChatVisible}}
+        <div class="chat__menu-add">
+          {{{newChatInput}}}
+          {{{chatAddChatButton}}}
+        </div>
+        {{/if}}
         <div class="chat__menu-contacts">
           {{{contactOne}}}
           {{{contactTwo}}}

@@ -255,6 +255,12 @@ layout {
       overflow-y: scroll;
       max-height: calc(100vh - 50px);
     }
+    &-add {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;  
+    }
   }
 
   &__container {
@@ -396,6 +402,7 @@ layout {
     }
   }
 }
+
 
 div {
   //border: 1px solid red;

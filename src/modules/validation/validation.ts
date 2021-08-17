@@ -34,6 +34,10 @@ export function validateInput(params: {
 			valid = regExps.phone.test(value);
 			errorMsgContainer!.innerText = valid ? '' : errorMessages.phone;
 			break;
+		case 'chatName':
+			valid = regExps.chatName.test(value);
+			errorMsgContainer!.innerText = valid ? '' : errorMessages.chatName;
+			break;
 		default:
 			valid = false;
 	}
