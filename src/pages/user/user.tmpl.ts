@@ -4,7 +4,7 @@ const userTmpl = `
         <img class="user__img" {{#if userData.avatar}}src={{userData.avatar}}{{/if}}>
                 <p class="user__img-coverText">Изменить<br>аватар</p>
         </img>
-        //<input type="file" id="userAvatar" class="user__avatarInput">
+        <!--<input type="file" id="userAvatar" class="user__avatarInput">-->
         <form name="userForm" class="form__container">
           {{{emailInput}}}
           {{{loginInput}}}

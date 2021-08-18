@@ -123,6 +123,12 @@ export class Chat extends Block {
 					this.setProps(this.props);
 				})
 				.catch(data => console.log(JSON.parse(data.response)));
+			chatRequester.getToken(this.props.currentChat.id)
+				.then((data: XMLHttpRequest) => {
+					this.props.currentChat.token = JSON.parse(data.response);
+					this.setProps(this.props);
+				})
+				.catch(data => console.log(JSON.parse(data.response)));
 			// ЗДЕСЬ БУДЕТ ЗАПРОС НА СООБЩЕНИЯ
 		} else if (
 			event.target
