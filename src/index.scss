@@ -155,6 +155,16 @@ layout {
   width: 50%;
   min-height: 450px;
 
+  &__avatarInput {
+    width: 200px;
+    border: none;
+    border-bottom: 1px solid #3369f3;
+    color: #1e1e1e;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+  }
+
   &__title {
     @extend .resetParagraph;
 
