@@ -6,6 +6,7 @@ import {Authorize} from './pages/authorize/authorize';
 import {Register} from './pages/register/register';
 import {User} from './pages/user/user';
 import {Chat} from './pages/chat/chat';
+import {Password} from './pages/password/password';
 import Router from './modules/router/router';
 
 const router = new Router('root');
@@ -17,4 +18,5 @@ router
 	.use('/', Authorize)
 	.use('/settings', User)
 	.use('/messenger', Chat)
+	.use('/password', Password)
 	.start();

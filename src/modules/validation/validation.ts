@@ -17,6 +17,7 @@ export function validateInput(params: {
 			break;
 		case 'password':
 		case 'password_check':
+		case 'password_old':
 			valid = regExps.password.test(value);
 			errorMsgContainer!.innerText = valid ? '' : errorMessages.password;
 			break;

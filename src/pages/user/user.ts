@@ -125,6 +125,11 @@ export class User extends Block {
 			router.go('/messenger');
 		} else if (
 			event.target
+      === document.getElementById(this.props.userChangePasswordButton.props.id)
+		) {
+			router.go('/password');
+		} else if (
+			event.target
       === document.getElementById(this.props.userExitButton.props.id)
 		) {
 			authRequester.logOut()
