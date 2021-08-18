@@ -6,7 +6,9 @@ import {FormPiece} from '../../components/formPiece/formPiece';
 import {chatTmpl} from './chat.tmpl';
 import Router from '../../modules/router/router';
 import {chatRequester} from '../../modules/api/chat-api';
+import {authRequester} from '../../modules/api/auth-api';
 import {validateInput} from '../../modules/validation/validation';
+import {userRequester} from '../../modules/api/user-api';
 
 const router = new Router('root');
 const addSelector = 'user';
@@ -46,9 +48,33 @@ export class Chat extends Block {
 				type: 'submit',
 				style: 'main',
 			}),
+			deleteUserButton: new Button({
+				id: 'deleteUserButton',
+				text: '-',
+				type: 'button',
+				style: 'alert-small',
+			}),
+			deleteChatButton: new Button({
+				id: 'deleteChatButton',
+				text: 'Удалить чат',
+				type: 'button',
+				style: 'alert',
+			}),
+			addUserButton: new Button({
+				id: 'addUserButton',
+				text: '+',
+				type: 'button',
+				style: 'main',
+			}),
 			newChatInput: new FormPiece({
 				name: 'new_chat_input',
 				label: 'Новый чат',
+				type: 'text',
+				addSelector,
+			}),
+			addUserInput: new FormPiece({
+				name: 'add_user_input',
+				label: 'Добавить пользователя',
 				type: 'text',
 				addSelector,
 			}),
@@ -74,8 +100,9 @@ export class Chat extends Block {
 				click: (event: Event) => this.clickHandler(event),
 			},
 			image: 'http://placekitten.com/50/50',
-			contact: ['Петя', 'Вася'],
+			contact: 'Петя',
 			addChatVisible: false,
+			chatSettingsVisible: false,
 		});
 	}
 
@@ -86,11 +113,17 @@ export class Chat extends Block {
 		) {
 			router.go('/settings');
 		} else if (event.target!.classList.contains('contact__body')) {
+			this.props.chatSettingsVisible = false;
 			this.props.currentChat = this.props.contacts[event.target!.parentElement.id].props;
 			this.props.contact = this.props.currentChat.title;
 			this.props.image = this.props.currentChat.image;
+			chatRequester.getChatUsers(this.props.currentChat.id)
+				.then((data: XMLHttpRequest) => {
+					this.props.currentChat.contacts = JSON.parse(data.response);
+					this.setProps(this.props);
+				})
+				.catch(data => console.log(JSON.parse(data.response)));
 			// ЗДЕСЬ БУДЕТ ЗАПРОС НА СООБЩЕНИЯ
-			this.setProps(this.props);
 		} else if (
 			event.target
 			=== document.getElementById(this.props.newChatButton.props.id)
@@ -125,16 +158,98 @@ export class Chat extends Block {
 					})
 					.catch(data => console.log(JSON.parse(data.response)));
 			}
+		} else if (
+			event.target
+			=== document.getElementById(this.props.chatSettingsButton.props.id)
+		) {
+			this.props.chatSettingsVisible = !this.props.chatSettingsVisible;
+			this.setProps(this.props);
+		} else if (
+			event.target
+			=== document.getElementById(this.props.deleteChatButton.props.id)
+		) {
+			chatRequester.deleteChat({
+				data: {
+					chatId: this.props.currentChat.id,
+				},
+			})
+				.then(() => {
+					chatRequester.getChats()
+						.then((data: XMLHttpRequest) => {
+							this._setChatsToProps(data);
+							this.props.chatSettingsVisible = false;
+							this.props.currentChat = null;
+							// УДАЛИТЬ СООБЩЕНИЯ
+							this.setProps(this.props);
+						})
+						.catch(data => console.log(JSON.parse(data.response)));
+				})
+				.catch(data => console.log(JSON.parse(data.response)));
+		} else if (
+			event.target
+			=== document.getElementById(this.props.addUserButton.props.id)
+		) {
+			const newAddedUser = document.getElementById(this.props.addUserInput.props.name)!.value;
+			userRequester.findUser({
+				data: {
+					login: newAddedUser,
+				},
+			})
+				.then((data: XMLHttpRequest) => {
+					chatRequester.addUserToChat({
+						data: {
+							users: [
+								JSON.parse(data.response)[0].id,
+							],
+							chatId: this.props.currentChat.id,
+						},
+					})
+						.then(() => {
+							chatRequester.getChatUsers(this.props.currentChat.id)
+								.then((data: XMLHttpRequest) => {
+									this.props.currentChat.contacts = JSON.parse(data.response);
+									this.setProps(this.props);
+								})
+								.catch(data => console.log(JSON.parse(data.response)));
+						})
+						.catch(data => console.log(JSON.parse(data.response)));
+				})
+				.catch(data => console.log(JSON.parse(data.response)));
+		} else if (
+			event.target!.id === 'deleteUserButton'
+		) {
+			chatRequester.deleteUsersFromChat({
+				data: {
+					users: [
+						event.target!.parentElement.id,
+					],
+					chatId: this.props.currentChat.id,
+				},
+			})
+				.then(() => {
+					chatRequester.getChatUsers(this.props.currentChat.id)
+						.then((data: XMLHttpRequest) => {
+							this.props.currentChat.contacts = JSON.parse(data.response);
+							this.setProps(this.props);
+						})
+						.catch(data => console.log(JSON.parse(data.response)));
+				})
+				.catch(data => console.log(JSON.parse(data.response)));
 		}
 	}
 
 	componentDidMount() {
-		chatRequester.getChats()
+		authRequester.getUser()
 			.then((data: XMLHttpRequest) => {
-				this._setChatsToProps(data);
-				this.setProps(this.props);
+				this.props.userData = JSON.parse(data.response);
+				chatRequester.getChats()
+					.then((data: XMLHttpRequest) => {
+						this._setChatsToProps(data);
+						this.setProps(this.props);
+					})
+					.catch(data => console.log(JSON.parse(data.response)));
 			})
-			.catch(data => console.log(JSON.parse(data.response)));
+			.catch(() => router.go('/'));
 	}
 
 	_setChatsToProps(data: XMLHttpRequest) {
@@ -149,6 +264,7 @@ export class Chat extends Block {
 			// eslint-disable-next-line camelcase
 			unread_count: number
 		}[] = JSON.parse(data.response);
+		this.props.contacts = {};
 		chats.forEach(item => {
 			this.props.contacts[item.id] = new Contact({
 				id: item.id,
@@ -174,7 +290,11 @@ export class Chat extends Block {
 			chatAttachButton: this.props.chatAttachButton.render(),
 			chatSendButton: this.props.chatSendButton.render(),
 			chatAddChatButton: this.props.chatAddChatButton.render(),
+			deleteUserButton: this.props.deleteUserButton.render(),
+			deleteChatButton: this.props.deleteChatButton.render(),
+			addUserButton: this.props.addUserButton.render(),
 			newChatInput: this.props.newChatInput.render(),
+			addUserInput: this.props.addUserInput.render(),
 			contactOne: this.props.contactOne.render(),
 			contactTwo: this.props.contactTwo.render(),
 			currentChat: this.props.currentChat,
@@ -182,6 +302,8 @@ export class Chat extends Block {
 			contact: this.props.contact,
 			contactsMarkUp: this.props.contactsMarkUp,
 			addChatVisible: this.props.addChatVisible,
+			chatSettingsVisible: this.props.chatSettingsVisible,
+			userData: this.props.userData,
 		});
 	}
 }

@@ -31,6 +31,7 @@ const chatTmpl = `
             </div>
             {{{chatSettingsButton}}}
           </div>
+          {{#unless chatSettingsVisible}}
           <div class="chat__body">
           
           </div>
@@ -39,6 +40,22 @@ const chatTmpl = `
             <textarea contenteditable="true" id="messageInput" class="chat__input-field"></textarea>
             {{{chatSendButton}}}
           </div>
+          {{/unless}}
+          {{#if chatSettingsVisible}}
+          <div class="chat__settings">
+            <div class="chat__settings-container">
+            {{{addUserInput}}}
+            {{{addUserButton}}}
+              {{#each currentChat.contacts}}
+                <div class="chat__settings-user" id={{{id}}}>
+                  <p class="chat__settings-login">{{{login}}}</p>  
+                  {{{../deleteUserButton}}}
+                </div>            
+              {{/each}}
+              {{{deleteChatButton}}}
+            </div>
+          </div>
+          {{/if}}
           {{/if}}
       </div>
     </div>

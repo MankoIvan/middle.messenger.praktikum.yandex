@@ -145,7 +145,7 @@ export class User extends Block {
 				this.props.chatName.props.value = this.props.userData.display_name;
 				this.setProps(this.props);
 			})
-			.catch(data => console.log(JSON.parse(data.response)));
+			.catch(() => router.go('/'));
 	}
 
 	render() {

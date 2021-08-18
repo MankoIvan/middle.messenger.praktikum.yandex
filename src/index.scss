@@ -88,6 +88,15 @@ body {
     }
   }
 
+  &_alert-small {
+    background-color: $buttonAlertColor;
+    color: $buttonAlertTextColor;
+
+    &:hover {
+      background-color: $buttonAlertHoverColor;
+    }
+  }
+
   &_main {
     width: 280px;
     background-color: $buttonMainColor;
@@ -267,6 +276,38 @@ layout {
     width: calc(100vw - 400px);
     display: flex;
     flex-direction: column;
+  }
+
+  &__settings {
+    flex: 1;
+    width: calc(100vw - 400px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background-color: $chatMenuBackground;
+
+    &-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    &-user {
+      box-sizing: border-box;
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 0 10px;
+    }
+
+    &-login {
+      @extend .resetParagraph;
+      font-size: 16px;
+      line-height: 18px;
+    }
   }
 
   &__bar {

@@ -17,7 +17,7 @@ export class ChatAPI extends BaseAPI {
 	}
 
 	getChatUsers(id: string) {
-		return chatAPIInstance.get(`/:${id}/users`);
+		return chatAPIInstance.get(`/${id}/users`);
 	}
 
 	getChatnewMessages(id: string) {
@@ -33,7 +33,7 @@ export class ChatAPI extends BaseAPI {
 	}
 
 	deleteUsersFromChat(options: Options) {
-		return chatAPIInstance.put('/users', options);
+		return chatAPIInstance.delete('/users', options);
 	}
 }
 
