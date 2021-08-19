@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars';
-import Block from '../../modules/block';
+import Block from '../../modules/block/block';
 import {messageTmpl} from './message.tmpl';
 
 export class Message extends Block {

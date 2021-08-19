@@ -21,7 +21,7 @@
     "mocha": "^9.0.3",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
-    "ts-node": "^10.1.0",
+    "ts-node": "^10.2.1",
     "typescript": "^4.3.5"
   },
   "scripts": {
@@ -29,7 +29,7 @@
     "build": "parcel build src/index.html",
     "start": "parcel build src/index.html && node ./server.ts",
     "lint": "npx eslint . --fix --ext .ts && npx stylelint --fix **/*.scss",
-    "test": "./node_modules/.bin/mocha"
+    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r jsdom-global/register -r ts-node/register 'src/**/*.spec.ts'"
   },
   "repository": {
     "type": "git",

@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars';
-import Block from '../../modules/block';
+import Block from '../../modules/block/block';
 import {Button} from '../../components/button/button';
 import {FormPiece} from '../../components/formPiece/formPiece';
 import {authorizeTmpl} from './authorize.tmpl';

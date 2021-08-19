@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars';
-import Block from '../../modules/block';
+import Block from '../../modules/block/block';
 import {Button} from '../../components/button/button';
 import {error404Tmpl} from './error404.tmpl';
 import Router from '../../modules/router/router';

@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars';
-import Block from '../../modules/block';
+import Block from '../../modules/block/block';
 import {contactTmpl} from './contact.tmpl';
 
 export class Contact extends Block {
