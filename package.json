@@ -11,10 +11,14 @@
   },
   "devDependencies": {
     "@parcel/transformer-sass": "^2.0.0-beta.2",
+    "@types/chai": "^4.2.21",
+    "@types/mocha": "^9.0.0",
     "@typescript-eslint/eslint-plugin": "^4.28.5",
     "@typescript-eslint/parser": "^4.28.5",
+    "chai": "^4.3.4",
     "eslint": "^7.31.0",
     "eslint-config-xo": "^0.37.0",
+    "mocha": "^9.0.3",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
     "ts-node": "^10.1.0",
@@ -24,7 +28,8 @@
     "dev": "parcel src/index.html",
     "build": "parcel build src/index.html",
     "start": "parcel build src/index.html && node ./server.ts",
-    "lint": "npx eslint . --fix --ext .ts && npx stylelint --fix **/*.scss"
+    "lint": "npx eslint . --fix --ext .ts && npx stylelint --fix **/*.scss",
+    "test": "./node_modules/.bin/mocha"
   },
   "repository": {
     "type": "git",
