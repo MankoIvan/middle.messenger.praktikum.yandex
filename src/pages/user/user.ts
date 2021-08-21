@@ -97,27 +97,7 @@ export class User extends Block {
 		if (
 			event.target === document.getElementById(this.props.userSaveButton.props.id)
 		) {
-			let valid: Boolean = true;
-			const form = document.forms.namedItem('userForm');
-			const formData: { [key: string]: string } = {};
-			const formDataArray = Array.from(form!.elements) as HTMLInputElement[];
-			formDataArray.forEach(element => {
-				valid = validateInput({
-					value: element.value,
-					type: element.name,
-					errorMsgSelecor: `${addSelector}${element.id}ErrMessage`,
-				}) ? valid : false;
-				formData[element.id] = element.value;
-			});
-			if (valid) {
-				userRequester.changeUserInfo({
-					data: formData,
-				})
-					.then(() => router.go('/messenger'))
-					.catch(data => console.log(JSON.parse(data.response)));
-			}
-
-			console.log(formData);
+			this._saveButtonFunc();
 		} else if (
 			event.target
       === document.getElementById(this.props.userBackButton.props.id)
@@ -136,6 +116,30 @@ export class User extends Block {
 				.then(() => router.go('/'))
 				.catch(data => console.log(JSON.parse(data.response)));
 		}
+	}
+
+	_saveButtonFunc() {
+		let valid: Boolean = true;
+		const form = document.forms.namedItem('userForm');
+		const formData: { [key: string]: string } = {};
+		const formDataArray = Array.from(form!.elements) as HTMLInputElement[];
+		formDataArray.forEach(element => {
+			valid = validateInput({
+				value: element.value,
+				type: element.name,
+				errorMsgSelecor: `${addSelector}${element.id}ErrMessage`,
+			}) ? valid : false;
+			formData[element.id] = element.value;
+		});
+		if (valid) {
+			userRequester.changeUserInfo({
+				data: formData,
+			})
+				.then(() => router.go('/messenger'))
+				.catch(data => console.log(JSON.parse(data.response)));
+		}
+
+		console.log(formData);
 	}
 
 	componentDidMount() {

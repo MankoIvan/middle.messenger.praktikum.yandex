@@ -67,39 +67,43 @@ export class Password extends Block {
 		if (
 			event.target === document.getElementById(this.props.passwordSaveButton.props.id)
 		) {
-			let valid: Boolean = true;
-			const form = document.forms.namedItem('passwordForm');
-			const formData: { [key: string]: string } = {};
-			const formDataArray = Array.from(form!.elements) as HTMLInputElement[];
-			formDataArray.forEach(element => {
-				valid = validateInput({
-					value: element.value,
-					type: element.name,
-					errorMsgSelecor: `${addSelector}${element.id}ErrMessage`,
-				}) ? valid : false;
-				formData[element.id] = element.value;
-			});
-			if (formData.password !== formData.password_check) {
-				valid = false;
-				document.getElementById(`${addSelector}password_checkErrMessage`)!.innerText
-					= 'Пароли не совпадают';
-			}
-
-			if (valid) {
-				userRequester.changeUserPassword({
-					data: {
-						oldPassword: formData.password_old,
-						newPassword: formData.password,
-					},
-				})
-					.then(() => router.go('/settings'))
-					.catch(data => console.log(JSON.parse(data.response)));
-			}
+			this._changePasswordButtonFun();
 		} else if (
 			event.target
       === document.getElementById(this.props.passwordBackButton.props.id)
 		) {
 			router.go('/settings');
+		}
+	}
+
+	_changePasswordButtonFun() {
+		let valid: Boolean = true;
+		const form = document.forms.namedItem('passwordForm');
+		const formData: { [key: string]: string } = {};
+		const formDataArray = Array.from(form!.elements) as HTMLInputElement[];
+		formDataArray.forEach(element => {
+			valid = validateInput({
+				value: element.value,
+				type: element.name,
+				errorMsgSelecor: `${addSelector}${element.id}ErrMessage`,
+			}) ? valid : false;
+			formData[element.id] = element.value;
+		});
+		if (formData.password !== formData.password_check) {
+			valid = false;
+			document.getElementById(`${addSelector}password_checkErrMessage`)!.innerText
+				= 'Пароли не совпадают';
+		}
+
+		if (valid) {
+			userRequester.changeUserPassword({
+				data: {
+					oldPassword: formData.password_old,
+					newPassword: formData.password,
+				},
+			})
+				.then(() => router.go('/settings'))
+				.catch(data => console.log(JSON.parse(data.response)));
 		}
 	}
 

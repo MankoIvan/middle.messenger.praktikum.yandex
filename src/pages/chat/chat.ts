@@ -113,23 +113,7 @@ export class Chat extends Block {
 		) {
 			router.go('/settings');
 		} else if (event.target!.classList.contains('contact__body')) {
-			this.props.chatSettingsVisible = false;
-			this.props.currentChat = this.props.contacts[event.target!.parentElement.id].props;
-			this.props.contact = this.props.currentChat.title;
-			this.props.image = this.props.currentChat.image;
-			chatRequester.getChatUsers(this.props.currentChat.id)
-				.then((data: XMLHttpRequest) => {
-					this.props.currentChat.contacts = JSON.parse(data.response);
-					this.setProps(this.props);
-				})
-				.catch(data => console.log(JSON.parse(data.response)));
-			chatRequester.getToken(this.props.currentChat.id)
-				.then((data: XMLHttpRequest) => {
-					this.props.currentChat.token = JSON.parse(data.response);
-					this.setProps(this.props);
-				})
-				.catch(data => console.log(JSON.parse(data.response)));
-			// ЗДЕСЬ БУДЕТ ЗАПРОС НА СООБЩЕНИЯ
+			this._openChat(event);
 		} else if (
 			event.target
 			=== document.getElementById(this.props.newChatButton.props.id)
@@ -140,30 +124,7 @@ export class Chat extends Block {
 			event.target
 			=== document.getElementById(this.props.chatAddChatButton.props.id)
 		) {
-			const errorMsgSelecor = `${addSelector}${this.props.newChatInput.props.name}ErrMessage`;
-			const newChatName = document.getElementById(this.props.newChatInput.props.name)!.value;
-			const valid = validateInput({
-				value: newChatName,
-				type: 'chatName',
-				errorMsgSelecor,
-			});
-			if (valid) {
-				chatRequester.createChat({
-					data: {
-						title: newChatName,
-					},
-				})
-					.then(() => {
-						this.props.addChatVisible = false;
-						chatRequester.getChats()
-							.then((data: XMLHttpRequest) => {
-								this._setChatsToProps(data);
-								this.setProps(this.props);
-							})
-							.catch(data => console.log(JSON.parse(data.response)));
-					})
-					.catch(data => console.log(JSON.parse(data.response)));
-			}
+			this._addChat();
 		} else if (
 			event.target
 			=== document.getElementById(this.props.chatSettingsButton.props.id)
@@ -174,74 +135,133 @@ export class Chat extends Block {
 			event.target
 			=== document.getElementById(this.props.deleteChatButton.props.id)
 		) {
-			chatRequester.deleteChat({
-				data: {
-					chatId: this.props.currentChat.id,
-				},
-			})
-				.then(() => {
-					chatRequester.getChats()
-						.then((data: XMLHttpRequest) => {
-							this._setChatsToProps(data);
-							this.props.chatSettingsVisible = false;
-							this.props.currentChat = null;
-							// УДАЛИТЬ СООБЩЕНИЯ
-							this.setProps(this.props);
-						})
-						.catch(data => console.log(JSON.parse(data.response)));
-				})
-				.catch(data => console.log(JSON.parse(data.response)));
+			this._deleteChat();
 		} else if (
 			event.target
 			=== document.getElementById(this.props.addUserButton.props.id)
 		) {
-			const newAddedUser = document.getElementById(this.props.addUserInput.props.name)!.value;
-			userRequester.findUser({
-				data: {
-					login: newAddedUser,
-				},
-			})
-				.then((data: XMLHttpRequest) => {
-					chatRequester.addUserToChat({
-						data: {
-							users: [
-								JSON.parse(data.response)[0].id,
-							],
-							chatId: this.props.currentChat.id,
-						},
-					})
-						.then(() => {
-							chatRequester.getChatUsers(this.props.currentChat.id)
-								.then((data: XMLHttpRequest) => {
-									this.props.currentChat.contacts = JSON.parse(data.response);
-									this.setProps(this.props);
-								})
-								.catch(data => console.log(JSON.parse(data.response)));
-						})
-						.catch(data => console.log(JSON.parse(data.response)));
-				})
-				.catch(data => console.log(JSON.parse(data.response)));
+			this._addUserToChat();
 		} else if (
 			event.target!.id === 'deleteUserButton'
 		) {
-			chatRequester.deleteUsersFromChat({
+			this._deleteUserFromChat(event);
+		}
+	}
+
+	_openChat(event: Event) {
+		this.props.chatSettingsVisible = false;
+		this.props.currentChat = this.props.contacts[event.target!.parentElement.id].props;
+		this.props.contact = this.props.currentChat.title;
+		this.props.image = this.props.currentChat.image;
+		chatRequester.getChatUsers(this.props.currentChat.id)
+			.then((data: XMLHttpRequest) => {
+				this.props.currentChat.contacts = JSON.parse(data.response);
+				this.setProps(this.props);
+			})
+			.catch(data => console.log(JSON.parse(data.response)));
+		chatRequester.getToken(this.props.currentChat.id)
+			.then((data: XMLHttpRequest) => {
+				this.props.currentChat.token = JSON.parse(data.response);
+				this.setProps(this.props);
+			})
+			.catch(data => console.log(JSON.parse(data.response)));
+		// ЗДЕСЬ БУДЕТ ЗАПРОС НА СООБЩЕНИЯ
+	}
+
+	_addChat() {
+		const errorMsgSelecor = `${addSelector}${this.props.newChatInput.props.name}ErrMessage`;
+		const newChatName = document.getElementById(this.props.newChatInput.props.name)!.value;
+		const valid = validateInput({
+			value: newChatName,
+			type: 'chatName',
+			errorMsgSelecor,
+		});
+		if (valid) {
+			chatRequester.createChat({
 				data: {
-					users: [
-						event.target!.parentElement.id,
-					],
-					chatId: this.props.currentChat.id,
+					title: newChatName,
 				},
 			})
 				.then(() => {
-					chatRequester.getChatUsers(this.props.currentChat.id)
+					this.props.addChatVisible = false;
+					chatRequester.getChats()
 						.then((data: XMLHttpRequest) => {
-							this.props.currentChat.contacts = JSON.parse(data.response);
+							this._setChatsToProps(data);
 							this.setProps(this.props);
 						})
 						.catch(data => console.log(JSON.parse(data.response)));
 				})
 				.catch(data => console.log(JSON.parse(data.response)));
 		}
+	}
+
+	_deleteChat() {
+		chatRequester.deleteChat({
+			data: {
+				chatId: this.props.currentChat.id,
+			},
+		})
+			.then(() => {
+				chatRequester.getChats()
+					.then((data: XMLHttpRequest) => {
+						this._setChatsToProps(data);
+						this.props.chatSettingsVisible = false;
+						this.props.currentChat = null;
+						// УДАЛИТЬ СООБЩЕНИЯ
+						this.setProps(this.props);
+					})
+					.catch(data => console.log(JSON.parse(data.response)));
+			})
+			.catch(data => console.log(JSON.parse(data.response)));
+	}
+
+	_addUserToChat() {
+		const newAddedUser = document.getElementById(this.props.addUserInput.props.name)!.value;
+		userRequester.findUser({
+			data: {
+				login: newAddedUser,
+			},
+		})
+			.then((data: XMLHttpRequest) => {
+				chatRequester.addUserToChat({
+					data: {
+						users: [
+							JSON.parse(data.response)[0].id,
+						],
+						chatId: this.props.currentChat.id,
+					},
+				})
+					.then(() => {
+						chatRequester.getChatUsers(this.props.currentChat.id)
+							.then((data: XMLHttpRequest) => {
+								this.props.currentChat.contacts = JSON.parse(data.response);
+								this.setProps(this.props);
+							})
+							.catch(data => console.log(JSON.parse(data.response)));
+					})
+					.catch(data => console.log(JSON.parse(data.response)));
+			})
+			.catch(data => console.log(JSON.parse(data.response)));
+	}
+
+	_deleteUserFromChat(event: Event) {
+		chatRequester.deleteUsersFromChat({
+			data: {
+				users: [
+					event.target!.parentElement.id,
+				],
+				chatId: this.props.currentChat.id,
+			},
+		})
+			.then(() => {
+				chatRequester.getChatUsers(this.props.currentChat.id)
+					.then((data: XMLHttpRequest) => {
+						this.props.currentChat.contacts = JSON.parse(data.response);
+						this.setProps(this.props);
+					})
+					.catch(data => console.log(JSON.parse(data.response)));
+			})
+			.catch(data => console.log(JSON.parse(data.response)));
 	}
 
 	componentDidMount() {

@@ -59,30 +59,34 @@ export class Authorize extends Block {
 			event.target
 			=== document.getElementById(this.props.authAuthorizeButton.props.id)
 		) {
-			let valid: Boolean = true;
-			const form = document.forms.namedItem('authorizeForm');
-			const formData: { [key: string]: string } = {};
-			const formDataArray = Array.from(form!.elements) as HTMLInputElement[];
-			formDataArray.forEach(element => {
-				valid = validateInput({
-					value: element.value,
-					type: element.name,
-					errorMsgSelecor: `${addSelector}${element.id}ErrMessage`,
-				}) ? valid : false;
-				formData[element.id] = element.value;
-			});
-			if (valid) {
-				authRequester.signIn({
-					data: formData,
-				})
-					.then(() => router.go('/messenger'))
-					.catch(data => console.log(JSON.parse(data.response)));
-			}
+			this._authorizeButtonFunc();
 		} else if (
 			event.target
 			=== document.getElementById(this.props.authRegisterButton.props.id)
 		) {
 			router.go('/sign-up');
+		}
+	}
+
+	_authorizeButtonFunc() {
+		let valid: Boolean = true;
+		const form = document.forms.namedItem('authorizeForm');
+		const formData: { [key: string]: string } = {};
+		const formDataArray = Array.from(form!.elements) as HTMLInputElement[];
+		formDataArray.forEach(element => {
+			valid = validateInput({
+				value: element.value,
+				type: element.name,
+				errorMsgSelecor: `${addSelector}${element.id}ErrMessage`,
+			}) ? valid : false;
+			formData[element.id] = element.value;
+		});
+		if (valid) {
+			authRequester.signIn({
+				data: formData,
+			})
+				.then(() => router.go('/messenger'))
+				.catch(data => console.log(JSON.parse(data.response)));
 		}
 	}
 

@@ -89,36 +89,40 @@ export class Register extends Block {
 			event.target
 			=== document.getElementById(this.props.regRegisterButton.props.id)
 		) {
-			let valid: Boolean = true;
-			const form = document.forms.namedItem('registerForm');
-			const formData: {[key: string]: string} = {};
-			const formDataArray = Array.from(form!.elements) as HTMLInputElement[];
-			formDataArray.forEach(element => {
-				valid = validateInput({
-					value: element.value,
-					type: element.name,
-					errorMsgSelecor: `${addSelector}${element.id}ErrMessage`,
-				}) ? valid : false;
-				formData[element.id] = element.value;
-			});
-			if (formData.password !== formData.password_check) {
-				valid = false;
-				document.getElementById(`${addSelector}password_checkErrMessage`)!.innerText
-					= 'Пароли не совпадают';
-			}
-
-			if (valid) {
-				authRequester.signUp({
-					data: formData,
-				})
-					.then(() => router.go('/messenger'))
-					.catch(data => console.log(JSON.parse(data.response)));
-			}
+			this._registerButtonFunc();
 		} else if (
 			event.target
       === document.getElementById(this.props.regAuthorizeButton.props.id)
 		) {
 			router.go('/');
+		}
+	}
+
+	_registerButtonFunc() {
+		let valid: Boolean = true;
+		const form = document.forms.namedItem('registerForm');
+		const formData: {[key: string]: string} = {};
+		const formDataArray = Array.from(form!.elements) as HTMLInputElement[];
+		formDataArray.forEach(element => {
+			valid = validateInput({
+				value: element.value,
+				type: element.name,
+				errorMsgSelecor: `${addSelector}${element.id}ErrMessage`,
+			}) ? valid : false;
+			formData[element.id] = element.value;
+		});
+		if (formData.password !== formData.password_check) {
+			valid = false;
+			document.getElementById(`${addSelector}password_checkErrMessage`)!.innerText
+				= 'Пароли не совпадают';
+		}
+
+		if (valid) {
+			authRequester.signUp({
+				data: formData,
+			})
+				.then(() => router.go('/messenger'))
+				.catch(data => console.log(JSON.parse(data.response)));
 		}
 	}
 
