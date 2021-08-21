@@ -47,4 +47,4 @@
 - напсианы базовые тесты с использованием Mocha и Chai
 
 ## Pull requests
-- https://github.com/MankoIvan/middle.messenger.praktikum.yandex/pull/7 - спринт 2 
+- https://github.com/MankoIvan/middle.messenger.praktikum.yandex/pull/8 - спринт 3
