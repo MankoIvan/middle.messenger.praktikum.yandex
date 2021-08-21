@@ -33,16 +33,15 @@ export default class Route {
 	render() {
 		if (!this._block) {
 			this._block = new this._blockClass();
-			this._render(this._props.rootQuery, this._block!);
-			return;
 		}
 
-		this._block.show();
+		this._block!.show();
+		this._render(this._props.rootQuery, this._block!);
 	}
 
 	_render(query: string, block: Block) {
 		const root = document.getElementById(query);
-		// Root.innerHTML = '';
+		root!.innerHTML = '';
 		root!.appendChild(block.getContent());
 		return root;
 	}

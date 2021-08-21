@@ -8,6 +8,7 @@
 - сборка проекта `npm run build`
 - сборка проекта и запуск локального сервера `npm run start`
 - запуск линтеров `npm run lint`
+- запуск тестов `npm run test`
 
 ## Netlify
 
@@ -35,6 +36,15 @@
 - добавлена валидация на все формы
 - реализован класс для работы с HTTP запросами
 - добавлены линтеры (ESLint и Stylelint)
+
+### Спринт №3
+- реализован роутер для регистрации роутов
+- внедрен HTTP API для чатов https://ya-praktikum.tech/api/v2/swagger/#/
+    + авторизация
+    + работа с пользовательской информацией
+    + работа с чатами
+- настроен WebSocket для сообщений
+- напсианы базовые тесты с использованием Mocha и Chai
 
 ## Pull requests
 - https://github.com/MankoIvan/middle.messenger.praktikum.yandex/pull/7 - спринт 2 
