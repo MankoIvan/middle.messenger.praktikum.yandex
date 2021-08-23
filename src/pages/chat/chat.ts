@@ -9,6 +9,7 @@ import {chatRequester} from '../../modules/api/chat-api';
 import {authRequester} from '../../modules/api/auth-api';
 import {validateInput} from '../../modules/validation/validation';
 import {userRequester} from '../../modules/api/user-api';
+import SocketModule from '../../modules/socket';
 
 const router = new Router('root');
 const addSelector = 'user';
@@ -143,8 +144,12 @@ export class Chat extends Block {
 			.catch(data => console.log(JSON.parse(data.response)));
 		chatRequester.getToken(this.props.currentChat.id)
 			.then((data: XMLHttpRequest) => {
-				this.props.currentChat.token = JSON.parse(data.response);
+				this.props.currentChat.token = JSON.parse(data.response).token;
 				this.setProps(this.props);
+
+				const socket = new SocketModule(
+					this.props.userData.id, this.props.currentChat.id, this.props.currentChat.token,
+				);
 			})
 			.catch(data => console.log(JSON.parse(data.response)));
 		// ЗДЕСЬ БУДЕТ ЗАПРОС НА СООБЩЕНИЯ
@@ -267,7 +272,7 @@ export class Chat extends Block {
 			created_by: number,
 			id: number,
 			// eslint-disable-next-line camelcase
-			last_message: string,
+			last_message: {},
 			title: string,
 			// eslint-disable-next-line camelcase
 			unread_count: number

@@ -5,7 +5,7 @@ const contactTmpl = `
             <p class="contact__body-name">
                 {{title}}
             </p>
-            <p class="contact__body-message">{{message}}</p>
+            <p class="contact__body-message">{{message.content}}</p>
         </div>
         <div class="contact__info">
             <p class="contact__time">{{time}}</p>

@@ -8,7 +8,7 @@ export class Contact extends Block {
 		createdBy?: number;
 		title: string;
 		image?: string;
-		message?: string;
+		message?: {};
 		new: number;
 		time?: string
 	}) {

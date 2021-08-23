@@ -1,5 +1,5 @@
-export default class socketModule {
-	static __instance: socketModule;
+export default class SocketModule {
+	static __instance: SocketModule;
 	socket: WebSocket;
 
 	constructor(userId: string, chatId: string, token: string) {
@@ -12,23 +12,23 @@ export default class socketModule {
 		this.socket.addEventListener('message', this.onMessage.bind(this));
 		this.socket.addEventListener('error', this.onError.bind(this));
 
-		if (socketModule.__instance) {
-			return socketModule.__instance;
+		if (SocketModule.__instance) {
+			return SocketModule.__instance;
 		}
 
-		socketModule.__instance = this;
+		SocketModule.__instance = this;
 	}
 
-	send(message: {content: string, type: string}) {
-		this.socket?.send(JSON.stringify(message));
+	send(message: string) {
+		this.socket?.send(message);
 	}
 
 	onOpen() {
 		console.log('Соединение установлено');
-		this.send({
+		this.socket.send(JSON.stringify({
 			content: '0',
 			type: 'get old',
-		});
+		}));
 	}
 
 	onMessage(event: any) {
