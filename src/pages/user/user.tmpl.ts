@@ -1,10 +1,17 @@
 const userTmpl = `
     <div class="user">
         <h1 class="user__title">Профиль</h1>
-        <img class="user__img" {{#if userData.avatar}}src={{userData.avatar}}{{/if}}>
-                <p class="user__img-coverText">Изменить<br>аватар</p>
+        {{#if userData.avatar}}
+        <img class="user__img" 
+          src=https://ya-praktikum.tech/api/v2/resources{{userData.avatar}}>
+        
         </img>
-        <!--<input type="file" id="userAvatar" class="user__avatarInput">-->
+        {{/if}}
+        <form class="user__changeAvatar" id="userAvatarForm">
+          <input type="file" id="userAvatarInput" class="user__changeAvatar-input"
+          name="userAvatarInput" accept='image/*'">
+          {{{userChangeAvatar}}}
+        </form>
         <form name="userForm" class="form__container">
           {{{emailInput}}}
           {{{loginInput}}}

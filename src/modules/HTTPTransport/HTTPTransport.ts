@@ -40,7 +40,8 @@ export default class HTTPTransport {
 		this.request(this.baseURL + url, {...options, method: METHODS.DELETE}, options.timeout);
 
 	request(url: string, options: Options, timeout: number = 5000) {
-		const {method = METHODS.GET, headers = {}, data = {}} = options;
+		const {method = METHODS.GET, headers = {'content-type': 'application/json'}, data = {}}
+		= options;
 		return new Promise((resolve, reject) => {
 			const xhr = new XMLHttpRequest();
 			xhr.open(
@@ -49,8 +50,10 @@ export default class HTTPTransport {
 					? `${url}${queryStringify(data)}`
 					: url,
 			);
+			if (Object.keys(headers).length === 0) {
+				xhr.setRequestHeader('content-type', 'application/json');
+			}
 
-			xhr.setRequestHeader('content-type', 'application/json');
 			Object.keys(headers).forEach(key => {
 				xhr.setRequestHeader(key, headers[key]);
 			});

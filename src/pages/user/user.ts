@@ -74,6 +74,12 @@ export class User extends Block {
 				type: 'button',
 				style: 'main',
 			}),
+			userChangeAvatar: new Button({
+				id: 'userChangeAvatar',
+				text: 'Изменить аватар',
+				type: 'button',
+				style: 'main-small',
+			}),
 			userData: {},
 			events: {
 				click: (event: Event) => this.clickHandler(event),
@@ -84,7 +90,7 @@ export class User extends Block {
 
 	validateOnBlur(event: Event) {
 		const eventTarget = <HTMLInputElement>event.target;
-		if (eventTarget.nodeName === 'INPUT') {
+		if (eventTarget.nodeName === 'INPUT' && eventTarget.id !== 'userAvatarInput') {
 			validateInput({
 				value: eventTarget.value,
 				type: eventTarget.name,
@@ -115,6 +121,11 @@ export class User extends Block {
 			authRequester.logOut()
 				.then(() => router.go('/'))
 				.catch(data => console.log(JSON.parse(data.response)));
+		} else if (
+			event.target
+      === document.getElementById(this.props.userChangeAvatar.props.id)
+		) {
+			this._changeAvatar();
 		}
 	}
 
@@ -140,6 +151,23 @@ export class User extends Block {
 		}
 
 		console.log(formData);
+	}
+
+	_changeAvatar() {
+		const userAvatarInput = <HTMLInputElement>document.getElementById('userAvatarInput');
+		if (userAvatarInput.files!.length) {
+			const userAvatarFormData = new FormData();
+			userAvatarFormData.append('avatar', userAvatarInput);
+			userRequester.changeUserAvatar({
+				headers: {
+					'content-type': 'multipart/form-data',
+				},
+				// @ts-ignore
+				data: userAvatarFormData,
+			})
+				.then(console.log)
+				.catch(console.log);
+		}
 	}
 
 	componentDidMount() {
@@ -170,6 +198,7 @@ export class User extends Block {
 			userChangePasswordButton: this.props.userChangePasswordButton.render(),
 			userExitButton: this.props.userExitButton.render(),
 			userBackButton: this.props.userBackButton.render(),
+			userChangeAvatar: this.props.userChangeAvatar.render(),
 			userData: this.props.userData,
 		});
 	}

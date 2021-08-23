@@ -92,10 +92,8 @@ export class Authorize extends Block {
 
 	componentDidMount() {
 		authRequester.getUser()
-			.then((res:XMLHttpRequest) => {
-				if (res.status === 200) {
-					router.go('/messenger');
-				}
+			.then(() => {
+				router.go('/messenger');
 			})
 			.catch(data => console.log(JSON.parse(data.response)));
 	}

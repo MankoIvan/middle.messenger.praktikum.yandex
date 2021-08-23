@@ -1,9 +1,8 @@
 import HTTPTransport, {Options} from '../HTTPTransport/HTTPTransport';
-import {BaseAPI} from './base-api';
 
 const AuthAPIInstance = new HTTPTransport('https://ya-praktikum.tech/api/v2/auth');
 
-class AuthAPI extends BaseAPI {
+class AuthAPI {
 	signUp(options: Options) {
 		return AuthAPIInstance.post('/signup', options);
 	}
