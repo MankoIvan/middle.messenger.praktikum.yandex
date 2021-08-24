@@ -48,7 +48,7 @@ export default class SocketModule {
 	_onOpen() {
 		console.log('Соединение установлено');
 		this.socket.send(JSON.stringify({
-			content: '1',
+			content: '0',
 			type: 'get old',
 		}));
 	}
