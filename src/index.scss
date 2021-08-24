@@ -391,8 +391,44 @@ layout {
 
 	&__body {
 		flex: 1;
+		display: flex;
+		flex-direction: column-reverse;
+		overflow-y: scroll;
+
+		&-placeholder {
+			@extend .resetParagraph;
+			text-align: center;
+			margin-bottom: 20px;
+			color: $grey03;
+		}
+	}
+}
+
+.message {
+	display: flex;
+	justify-content: flex-end;
+
+	&_incoming {
+		justify-content: flex-start;
 	}
 
+	&__wrap {
+		border: 2px solid $blue02;
+		border-radius: 10px;
+		min-width: 100px;
+		max-width: 50%;
+		padding: 10px;
+		margin-right: 15px;
+	}
+
+	&_incoming > &__wrap  {
+		border: 2px solid $grey03;
+		margin-left: 15px;
+	}
+
+	&__text {
+		@extend .resetParagraph;
+	}
 }
 
 .contact {

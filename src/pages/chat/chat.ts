@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 import Handlebars from 'handlebars';
 import Block from '../../modules/block/block';
 import {Button} from '../../components/button/button';
@@ -147,12 +148,20 @@ export class Chat extends Block {
 				this.props.currentChat.token = JSON.parse(data.response).token;
 				this.setProps(this.props);
 
-				const socket = new SocketModule(
-					this.props.userData.id, this.props.currentChat.id, this.props.currentChat.token,
-				);
+				const chatBody = document.getElementById('chatBody');
+				const socket = new SocketModule(this.props.userData.id, this.props.currentChat.id, this.props.currentChat.token, chatBody);
+
+				const messageInput = document.getElementById('messageInput');
+				const sendMessageButton = document.getElementById(this.props.chatSendButton.props.id);
+				sendMessageButton?.addEventListener('click', () => {
+					socket.send(JSON.stringify({
+						content: messageInput?.value,
+						type: 'message',
+					}));
+					messageInput!.value = '';
+				});
 			})
 			.catch(data => console.log(JSON.parse(data.response)));
-		// ЗДЕСЬ БУДЕТ ЗАПРОС НА СООБЩЕНИЯ
 	}
 
 	_addChat() {

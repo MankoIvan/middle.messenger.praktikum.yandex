@@ -12,8 +12,6 @@ const chatTmpl = `
         </div>
         {{/if}}
         <div class="chat__menu-contacts">
-          {{{contactOne}}}
-          {{{contactTwo}}}
           {{#each contactsMarkUp}}
             {{{this}}}
           {{/each}}
@@ -32,8 +30,8 @@ const chatTmpl = `
             {{{chatSettingsButton}}}
           </div>
           {{#unless chatSettingsVisible}}
-          <div class="chat__body">
-          
+          <div class="chat__body" id="chatBody">
+            <p class="chat__body-placeholder">История чата</p>
           </div>
           <div class="chat__input">
             {{{chatAttachButton}}}
