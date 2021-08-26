@@ -2,48 +2,25 @@ import Handlebars from 'handlebars';
 import Block from '../../modules/block/block';
 import {Button} from '../../components/button/button';
 import {FormPiece} from '../../components/formPiece/formPiece';
-import {registerTmpl} from './register.tmpl';
+import {passwordTmpl} from './password.tmpl';
 import {validateInput} from '../../modules/validation/validation';
 import Router from '../../modules/router/router';
 import {authRequester} from '../../modules/api/auth-api';
+import {userRequester} from '../../modules/api/user-api';
 
 const router = new Router('root');
-const addSelector = 'reg';
 
-export class Register extends Block {
+const addSelector = 'password';
+export class Password extends Block {
 	constructor() {
 		super('layout', {
-			emailInput: new FormPiece({
-				name: 'email',
-				label: 'Почта',
-				type: 'email',
+			passwordOldInput: new FormPiece({
+				name: 'password_old',
+				label: 'Пароль',
+				type: 'password',
 				addSelector,
 			}),
-			loginInput: new FormPiece({
-				name: 'login',
-				label: 'Логин',
-				type: 'text',
-				addSelector,
-			}),
-			firstNameInput: new FormPiece({
-				name: 'first_name',
-				label: 'Имя',
-				type: 'text',
-				addSelector,
-			}),
-			secondNameInput: new FormPiece({
-				name: 'second_name',
-				label: 'Фамилия',
-				type: 'text',
-				addSelector,
-			}),
-			phoneInput: new FormPiece({
-				name: 'phone',
-				label: 'Телефон',
-				type: 'tel',
-				addSelector,
-			}),
-			passwordInput: new FormPiece({
+			passwordNewInput: new FormPiece({
 				name: 'password',
 				label: 'Пароль',
 				type: 'password',
@@ -55,16 +32,18 @@ export class Register extends Block {
 				type: 'password',
 				addSelector,
 			}),
-			regRegisterButton: new Button({
-				id: 'regRegisterButton',
-				text: 'Зарегистрироваться',
+
+			passwordSaveButton: new Button({
+				id: 'passwordSaveButton',
+				text: 'Сохранить',
 				type: 'submit',
-				style: 'main',
+				style: 'alert',
 			}),
-			regAuthorizeButton: new Button({
-				id: 'regAuthorizeButton',
-				text: 'Войти',
+			passwordBackButton: new Button({
+				id: 'passwordBackButton',
+				text: 'Назад к настройкам',
 				type: 'button',
+				style: 'main',
 			}),
 			events: {
 				click: (event: Event) => this.clickHandler(event),
@@ -86,22 +65,21 @@ export class Register extends Block {
 
 	clickHandler(event: Event) {
 		if (
-			event.target
-			=== document.getElementById(this.props.regRegisterButton.props.id)
+			event.target === document.getElementById(this.props.passwordSaveButton.props.id)
 		) {
-			this._registerButtonFunc();
+			this._changePasswordButtonFun();
 		} else if (
 			event.target
-      === document.getElementById(this.props.regAuthorizeButton.props.id)
+      === document.getElementById(this.props.passwordBackButton.props.id)
 		) {
-			router.go('/');
+			router.go('/settings');
 		}
 	}
 
-	_registerButtonFunc() {
+	_changePasswordButtonFun() {
 		let valid: Boolean = true;
-		const form = document.forms.namedItem('registerForm');
-		const formData: {[key: string]: string} = {};
+		const form = document.forms.namedItem('passwordForm');
+		const formData: { [key: string]: string } = {};
 		const formDataArray = Array.from(form!.elements) as HTMLInputElement[];
 		formDataArray.forEach(element => {
 			valid = validateInput({
@@ -118,34 +96,30 @@ export class Register extends Block {
 		}
 
 		if (valid) {
-			authRequester.signUp({
-				data: formData,
+			userRequester.changeUserPassword({
+				data: {
+					oldPassword: formData.password_old,
+					newPassword: formData.password,
+				},
 			})
-				.then(() => router.go('/messenger'))
+				.then(() => router.go('/settings'))
 				.catch(data => console.log(JSON.parse(data.response)));
 		}
 	}
 
 	componentDidMount() {
 		authRequester.getUser()
-			.then(() => {
-				router.go('/messenger');
-			})
-			.catch(data => console.log(JSON.parse(data.response)));
+			.catch(() => router.go('/'));
 	}
 
 	render() {
-		const template = Handlebars.compile(registerTmpl);
+		const template = Handlebars.compile(passwordTmpl);
 		return template({
-			emailInput: this.props.emailInput.render(),
-			loginInput: this.props.loginInput.render(),
-			firstNameInput: this.props.firstNameInput.render(),
-			secondNameInput: this.props.secondNameInput.render(),
-			phoneInput: this.props.phoneInput.render(),
-			passwordInput: this.props.passwordInput.render(),
+			passwordOldInput: this.props.passwordOldInput.render(),
+			passwordNewInput: this.props.passwordNewInput.render(),
 			passwordCheckInput: this.props.passwordCheckInput.render(),
-			regRegisterButton: this.props.regRegisterButton.render(),
-			regAuthorizeButton: this.props.regAuthorizeButton.render(),
+			passwordSaveButton: this.props.passwordSaveButton.render(),
+			passwordBackButton: this.props.passwordBackButton.render(),
 		});
 	}
 }

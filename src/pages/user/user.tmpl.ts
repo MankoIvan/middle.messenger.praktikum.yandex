@@ -1,9 +1,17 @@
 const userTmpl = `
-    <div class="form">
-        <h1 class="form__title">Профиль</h1>
-        <div class="form__userImg">
-                <p class="form__userImg-coverText">Изменить<br>аватар</p>
-        </div>
+    <div class="user">
+        <h1 class="user__title">Профиль</h1>
+        {{#if userData.avatar}}
+        <img class="user__img" 
+          src=https://ya-praktikum.tech/api/v2/resources{{userData.avatar}}>
+        
+        </img>
+        {{/if}}
+        <form class="user__changeAvatar" id="userAvatarForm">
+          <input type="file" id="userAvatarInput" class="user__changeAvatar-input"
+          name="userAvatarInput" accept='image/*'">
+          {{{userChangeAvatar}}}
+        </form>
         <form name="userForm" class="form__container">
           {{{emailInput}}}
           {{{loginInput}}}
@@ -13,9 +21,11 @@ const userTmpl = `
           {{{chatName}}}
         </form>
         <div class="form__buttons">
-          {{{saveButton}}}
-          {{{changePasswordButton}}}
-          {{{goBackButton}}}
+          {{{userSaveButton}}}
+          {{{userChangePasswordButton}}}
+          {{{userExitButton}}}
+          <br/>
+          {{{userBackButton}}}
         </div>
     </div>
 `;

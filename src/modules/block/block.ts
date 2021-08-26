@@ -1,4 +1,4 @@
-import EventBus from './eventBus';
+import EventBus from '../eventBus';
 
 export default class Block {
 	static EVENTS = {
@@ -9,8 +9,8 @@ export default class Block {
 	};
 
 	eventBus: () => EventBus;
-	props: { [key: string]: any };
-	_meta: { tagName: string; props: { [key: string]: any } };
+	props: {[key: string]: any};
+	_meta: {tagName: string; props: {[key: string]: any}};
 	_element: HTMLElement;
 
 	// _element = null;
@@ -66,8 +66,8 @@ export default class Block {
 	componentDidMount() {}
 
 	_componentDidUpdate(
-		oldProps: { [key: string]: any },
-		newProps: { [key: string]: any },
+		oldProps: {[key: string]: any},
+		newProps: {[key: string]: any},
 	) {
 		const response = this.componentDidUpdate(oldProps, newProps);
 		if (!response) {
@@ -78,13 +78,13 @@ export default class Block {
 	}
 
 	componentDidUpdate(
-		oldProps: { [key: string]: any },
-		newProps: { [key: string]: any },
+		oldProps: {[key: string]: any},
+		newProps: {[key: string]: any},
 	) {
 		return oldProps !== newProps;
 	}
 
-	setProps = (nextProps: { [key: string]: any }) => {
+	setProps = (nextProps: {[key: string]: any}) => {
 		if (!nextProps) {
 			return;
 		}
@@ -100,7 +100,6 @@ export default class Block {
 		const block: string = this.render();
 		this._removeEvents();
 		this._element.innerHTML = block;
-		// His._element.addEventListener("click", e => console.log(e))
 		this._addEvents();
 	}
 
@@ -113,10 +112,8 @@ export default class Block {
 	}
 
 	_makePropsProxy(props: {}) {
-		const self = this;
-
 		return new Proxy(props, {
-			get(target: { [key: string]: any }, prop: string) {
+			get(target: {[key: string]: any}, prop: string) {
 				if (prop.indexOf('_') === 0) {
 					throw new Error('Отказано в доступе');
 				}
@@ -124,13 +121,13 @@ export default class Block {
 				const value = target[prop];
 				return typeof value === 'function' ? value.bind(target) : value;
 			},
-			set(target: { [key: string]: any[] }, prop: string, value: any) {
+			set: (target: {[key: string]: any[]}, prop: string, value: any) => {
 				if (prop.indexOf('_') === 0) {
 					throw new Error('Нет прав');
 				}
 
 				target[prop] = value;
-				self.eventBus().emit(Block.EVENTS.FLOW_CDU, {...target}, target);
+				this.eventBus().emit(Block.EVENTS.FLOW_CDU, {...target}, target);
 				return true;
 			},
 			deleteProperty() {

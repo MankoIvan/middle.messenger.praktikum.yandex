@@ -1,61 +1,86 @@
 import Handlebars from 'handlebars';
-import Block from '../../modules/block';
+import Block from '../../modules/block/block';
 import {Button} from '../../components/button/button';
 import {FormPiece} from '../../components/formPiece/formPiece';
 import {userTmpl} from './user.tmpl';
-import {validateInput} from '../../modules/validation';
+import {validateInput} from '../../modules/validation/validation';
+import Router from '../../modules/router/router';
+import {authRequester} from '../../modules/api/auth-api';
+import {userRequester} from '../../modules/api/user-api';
 
+const router = new Router('root');
+
+const addSelector = 'user';
 export class User extends Block {
 	constructor() {
-		super('div', {
+		super('layout', {
 			emailInput: new FormPiece({
 				name: 'email',
 				label: 'Почта',
 				type: 'email',
+				addSelector,
 			}),
 			loginInput: new FormPiece({
 				name: 'login',
 				label: 'Логин',
 				type: 'text',
+				addSelector,
 			}),
 			firstNameInput: new FormPiece({
 				name: 'first_name',
 				label: 'Имя',
 				type: 'text',
+				addSelector,
 			}),
 			secondNameInput: new FormPiece({
 				name: 'second_name',
 				label: 'Фамилия',
 				type: 'text',
+				addSelector,
 			}),
 			phoneInput: new FormPiece({
 				name: 'phone',
 				label: 'Телефон',
 				type: 'tel',
+				addSelector,
 			}),
 			chatName: new FormPiece({
-				name: 'chat_name',
+				name: 'display_name',
 				label: 'Имя в чате',
 				type: 'text',
+				addSelector,
 			}),
-			saveButton: new Button({
-				id: 'saveButton',
+			userSaveButton: new Button({
+				id: 'userSaveButton',
 				text: 'Сохранить',
 				type: 'submit',
 				style: 'main',
 			}),
-			changePasswordButton: new Button({
-				id: 'changePasswordButton',
+			userChangePasswordButton: new Button({
+				id: 'userChangePasswordButton',
 				text: 'Изменить пароль',
 				type: 'button',
 				style: 'main',
 			}),
-			goBackButton: new Button({
-				id: 'goBackButton',
-				text: 'Выйти',
+			userExitButton: new Button({
+				id: 'userExitButton',
+				text: 'Выйти из профиля',
 				type: 'button',
 				style: 'alert',
 			}),
+			userBackButton: new Button({
+				id: 'userBackButton',
+				text: 'Назад к чатам',
+				type: 'button',
+				style: 'main',
+			}),
+			userChangeAvatar: new Button({
+				id: 'userChangeAvatar',
+				text: 'Изменить аватар',
+				type: 'button',
+				style: 'main-small',
+			}),
+			userData: {},
 			events: {
 				click: (event: Event) => this.clickHandler(event),
 				focusout: (event: Event) => this.validateOnBlur(event),
@@ -65,32 +90,99 @@ export class User extends Block {
 
 	validateOnBlur(event: Event) {
 		const eventTarget = <HTMLInputElement>event.target;
-		if (eventTarget.nodeName === 'INPUT') {
+		if (eventTarget.nodeName === 'INPUT' && eventTarget.id !== 'userAvatarInput') {
 			validateInput({
 				value: eventTarget.value,
 				type: eventTarget.name,
-				errorMsgSelecor: `${eventTarget.id}ErrMessage`,
+				errorMsgSelecor: `${addSelector}${eventTarget.id}ErrMessage`,
 			});
 		}
 	}
 
 	clickHandler(event: Event) {
 		if (
-			event.target === document.getElementById(this.props.saveButton.props.id)
+			event.target === document.getElementById(this.props.userSaveButton.props.id)
 		) {
-			const form = document.forms.namedItem('userForm');
-			const formData: { [key: string]: string } = {};
-			const formDataArray = Array.from(form!.elements) as HTMLInputElement[];
-			formDataArray.forEach(element => {
-				validateInput({
-					value: element.value,
-					type: element.name,
-					errorMsgSelecor: `${element.id}ErrMessage`,
-				});
-				formData[element.id] = element.value;
-			});
-			console.log(formData);
+			this._saveButtonFunc();
+		} else if (
+			event.target
+      === document.getElementById(this.props.userBackButton.props.id)
+		) {
+			router.go('/messenger');
+		} else if (
+			event.target
+      === document.getElementById(this.props.userChangePasswordButton.props.id)
+		) {
+			router.go('/password');
+		} else if (
+			event.target
+      === document.getElementById(this.props.userExitButton.props.id)
+		) {
+			authRequester.logOut()
+				.then(() => router.go('/'))
+				.catch(data => console.log(JSON.parse(data.response)));
+		} else if (
+			event.target
+      === document.getElementById(this.props.userChangeAvatar.props.id)
+		) {
+			this._changeAvatar();
 		}
+	}
+
+	_saveButtonFunc() {
+		let valid: Boolean = true;
+		const form = document.forms.namedItem('userForm');
+		const formData: { [key: string]: string } = {};
+		const formDataArray = Array.from(form!.elements) as HTMLInputElement[];
+		formDataArray.forEach(element => {
+			valid = validateInput({
+				value: element.value,
+				type: element.name,
+				errorMsgSelecor: `${addSelector}${element.id}ErrMessage`,
+			}) ? valid : false;
+			formData[element.id] = element.value;
+		});
+		if (valid) {
+			userRequester.changeUserInfo({
+				data: formData,
+			})
+				.then(() => router.go('/messenger'))
+				.catch(data => console.log(JSON.parse(data.response)));
+		}
+
+		console.log(formData);
+	}
+
+	_changeAvatar() {
+		const userAvatarInput = <HTMLInputElement>document.getElementById('userAvatarInput');
+		if (userAvatarInput.files!.length) {
+			const userAvatarFormData = new FormData();
+			userAvatarFormData.append('avatar', userAvatarInput);
+			userRequester.changeUserAvatar({
+				headers: {
+					'content-type': 'multipart/form-data',
+				},
+				// @ts-ignore
+				data: userAvatarFormData,
+			})
+				.then(console.log)
+				.catch(console.log);
+		}
+	}
+
+	componentDidMount() {
+		authRequester.getUser()
+			.then((data:XMLHttpRequest) => {
+				this.props.userData = JSON.parse(data.response);
+				this.props.emailInput.props.value = this.props.userData.email;
+				this.props.loginInput.props.value = this.props.userData.login;
+				this.props.firstNameInput.props.value = this.props.userData.first_name;
+				this.props.secondNameInput.props.value = this.props.userData.second_name;
+				this.props.phoneInput.props.value = this.props.userData.phone;
+				this.props.chatName.props.value = this.props.userData.display_name;
+				this.setProps(this.props);
+			})
+			.catch(() => router.go('/'));
 	}
 
 	render() {
@@ -102,9 +194,12 @@ export class User extends Block {
 			secondNameInput: this.props.secondNameInput.render(),
 			phoneInput: this.props.phoneInput.render(),
 			chatName: this.props.chatName.render(),
-			saveButton: this.props.saveButton.render(),
-			changePasswordButton: this.props.changePasswordButton.render(),
-			goBackButton: this.props.goBackButton.render(),
+			userSaveButton: this.props.userSaveButton.render(),
+			userChangePasswordButton: this.props.userChangePasswordButton.render(),
+			userExitButton: this.props.userExitButton.render(),
+			userBackButton: this.props.userBackButton.render(),
+			userChangeAvatar: this.props.userChangeAvatar.render(),
+			userData: this.props.userData,
 		});
 	}
 }

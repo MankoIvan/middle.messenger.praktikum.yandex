@@ -11,8 +11,8 @@ const registerTmpl = `
           {{{passwordCheckInput}}}
         </form>
         <div class="form__buttons">
-          {{{registerButton}}}
-          {{{authorizeButton}}}
+          {{{regRegisterButton}}}
+          {{{regAuthorizeButton}}}
         </div>
     </div>
 `;

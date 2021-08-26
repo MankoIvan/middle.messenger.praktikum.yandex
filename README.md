@@ -6,15 +6,16 @@
 
 - запуск проекта в режиме разработчика `npm run dev`
 - сборка проекта `npm run build`
-- сборка проекта и запсук локального сервера `npm run start`
+- сборка проекта и запуск локального сервера `npm run start`
 - запуск линтеров `npm run lint`
+- запуск тестов `npm run test`
 
 ## Netlify
 
-- https://stupefied-nobel-c31678.netlify.app/ - домашнаяя страница
-- https://stupefied-nobel-c31678.netlify.app/user - профиль
-- https://stupefied-nobel-c31678.netlify.app/authorize - авторизация
-- https://stupefied-nobel-c31678.netlify.app/register - регистрация
+- https://stupefied-nobel-c31678.netlify.app/ -авторизация
+- https://stupefied-nobel-c31678.netlify.app/sign-up - регистрация
+- https://stupefied-nobel-c31678.netlify.app/settings - профиль
+- https://stupefied-nobel-c31678.netlify.app/messenger - страница чатов
 - https://stupefied-nobel-c31678.netlify.app/500 - ошибка сервера
 - https://stupefied-nobel-c31678.netlify.app/any-other-url - 404
 
@@ -35,6 +36,15 @@
 - добавлена валидация на все формы
 - реализован класс для работы с HTTP запросами
 - добавлены линтеры (ESLint и Stylelint)
+
+### Спринт №3
+- реализован роутер для регистрации роутов
+- внедрен HTTP API для чатов https://ya-praktikum.tech/api/v2/swagger/#/
+    + авторизация
+    + работа с пользовательской информацией
+    + работа с чатами
+- настроен WebSocket для сообщений
+- напсианы базовые тесты с использованием Mocha и Chai
 
 ## Pull requests
 - https://github.com/MankoIvan/middle.messenger.praktikum.yandex/pull/8 - спринт 3

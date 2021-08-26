@@ -1,5 +1,5 @@
 import Handlebars from 'handlebars';
-import Block from '../../modules/block';
+import Block from '../../modules/block/block';
 import {formPieceTmpl} from './formPiece.tmpl';
 
 export class FormPiece extends Block {
@@ -8,6 +8,8 @@ export class FormPiece extends Block {
     label: string;
     type: string;
     message?: string;
+	addSelector?: string;
+	value? :string;
   }) {
 		super('div', props);
 	}

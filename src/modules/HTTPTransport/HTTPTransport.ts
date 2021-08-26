@@ -5,14 +5,14 @@ enum METHODS {
 	DELETE = 'DELETE',
 }
 
-type Options = {
+export type Options = {
 	method?: string;
 	headers?: Record<string, string>;
-	data?: { [key: string]: unknown };
+	data?: {[key: string]: unknown};
 	timeout?: number;
 };
 
-function queryStringify(data: { [key: string]: unknown }) {
+function queryStringify(data: {[key: string]: unknown}) {
 	let strigified: string = '?';
 	Object.keys(data).forEach(item => {
 		strigified += `${item}=${data[item]}&`;
@@ -21,24 +21,27 @@ function queryStringify(data: { [key: string]: unknown }) {
 	return strigified.slice(0, strigified.length - 1);
 }
 
-queryStringify({a: 1, b: 2, c: {d: 123}, k: [1, 2, 3]});
-
 export default class HTTPTransport {
+	baseURL: string;
+	constructor(baseURL: string = '') {
+		this.baseURL = baseURL;
+	}
+
 	get = (url: string, options: Options = {}) =>
-		this.request(url, {...options, method: METHODS.GET}, options.timeout);
+		this.request(this.baseURL + url, {...options, method: METHODS.GET}, options.timeout);
 
 	put = (url: string, options: Options = {}) =>
-		this.request(url, {...options, method: METHODS.PUT}, options.timeout);
+		this.request(this.baseURL + url, {...options, method: METHODS.PUT}, options.timeout);
 
 	post = (url: string, options: Options = {}) =>
-		this.request(url, {...options, method: METHODS.POST}, options.timeout);
+		this.request(this.baseURL + url, {...options, method: METHODS.POST}, options.timeout);
 
 	delete = (url: string, options: Options = {}) =>
-		this.request(url, {...options, method: METHODS.DELETE}, options.timeout);
+		this.request(this.baseURL + url, {...options, method: METHODS.DELETE}, options.timeout);
 
 	request(url: string, options: Options, timeout: number = 5000) {
-		const {method = METHODS.GET, headers = {}, data = {}} = options;
-
+		const {method = METHODS.GET, headers = {'content-type': 'application/json'}, data = {}}
+		= options;
 		return new Promise((resolve, reject) => {
 			const xhr = new XMLHttpRequest();
 			xhr.open(
@@ -47,13 +50,22 @@ export default class HTTPTransport {
 					? `${url}${queryStringify(data)}`
 					: url,
 			);
+			if (Object.keys(headers).length === 0) {
+				xhr.setRequestHeader('content-type', 'application/json');
+			}
 
 			Object.keys(headers).forEach(key => {
 				xhr.setRequestHeader(key, headers[key]);
 			});
 
+			xhr.withCredentials = true;
+
 			xhr.onload = function () {
-				resolve(xhr);
+				if (xhr.status >= 200 && xhr.status < 300) {
+					resolve(xhr);
+				} else {
+					reject(xhr);
+				}
 			};
 
 			xhr.onabort = reject;
@@ -65,7 +77,7 @@ export default class HTTPTransport {
 				xhr.send();
 			} else {
 				// @ts-ignore
-				xhr.send(data);
+				xhr.send(JSON.stringify(data));
 			}
 		});
 	}
