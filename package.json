@@ -16,20 +16,33 @@
     "@typescript-eslint/eslint-plugin": "^4.28.5",
     "@typescript-eslint/parser": "^4.28.5",
     "chai": "^4.3.4",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.2.0",
     "eslint": "^7.31.0",
     "eslint-config-xo": "^0.37.0",
+    "html-loader": "^2.1.2",
+    "html-webpack-plugin": "^5.3.2",
     "mocha": "^9.0.3",
+    "sass": "^1.38.2",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^3.2.1",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
+    "ts-loader": "^9.2.5",
     "ts-node": "^10.2.1",
-    "typescript": "^4.3.5"
+    "typescript": "^4.3.5",
+    "webpack": "^5.51.1",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.1.0"
   },
   "scripts": {
-    "dev": "parcel src/index.html",
-    "build": "parcel build src/index.html",
-    "start": "parcel build src/index.html && node ./server.ts",
+    "dev-parcel": "parcel src/index.html",
+    "build-parcel": "parcel build src/index.html",
+    "start-parcel": "parcel build src/index.html && node ./server.ts",
     "lint": "npx eslint . --fix --ext .ts && npx stylelint --fix **/*.scss",
-    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r jsdom-global/register -r ts-node/register 'src/**/*.spec.ts'"
+    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r jsdom-global/register -r ts-node/register 'src/**/*.spec.ts'",
+    "dev": "cross-env NODE_ENV=development npx webpack serve",
+    "build": "cross-env NODE_ENV=production npx webpack"
   },
   "repository": {
     "type": "git",

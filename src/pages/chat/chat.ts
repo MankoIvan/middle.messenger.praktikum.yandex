@@ -96,7 +96,7 @@ export class Chat extends Block {
 			=== document.getElementById(this.props.settingsButton.props.id)
 		) {
 			router.go('/settings');
-		} else if (event.target!.classList.contains('contact__body')) {
+		} else if ((event.target! as HTMLElement).classList.contains('contact__body')) {
 			this._openChat(event);
 		} else if (
 			event.target
@@ -126,7 +126,7 @@ export class Chat extends Block {
 		) {
 			this._addUserToChat();
 		} else if (
-			event.target!.id === 'deleteUserButton'
+			(event.target! as HTMLElement).id === 'deleteUserButton'
 		) {
 			this._deleteUserFromChat(event);
 		}
@@ -134,7 +134,7 @@ export class Chat extends Block {
 
 	_openChat(event: Event) {
 		this.props.chatSettingsVisible = false;
-		this.props.currentChat = this.props.contacts[event.target!.parentElement.id].props;
+		this.props.currentChat = this.props.contacts[(event.target as HTMLElement).parentElement!.id].props;
 		this.props.contact = this.props.currentChat.title;
 		this.props.image = this.props.currentChat.image;
 		chatRequester.getChatUsers(this.props.currentChat.id)
@@ -151,7 +151,7 @@ export class Chat extends Block {
 				const chatBody = document.getElementById('chatBody');
 				const socket = new SocketModule(this.props.userData.id, this.props.currentChat.id, this.props.currentChat.token, chatBody);
 
-				const messageInput = document.getElementById('messageInput');
+				const messageInput = document.getElementById('messageInput') as HTMLInputElement;
 				const sendMessageButton = document.getElementById(this.props.chatSendButton.props.id);
 				sendMessageButton?.addEventListener('click', () => {
 					socket.send(JSON.stringify({
@@ -166,7 +166,7 @@ export class Chat extends Block {
 
 	_addChat() {
 		const errorMsgSelecor = `${addSelector}${this.props.newChatInput.props.name}ErrMessage`;
-		const newChatName = document.getElementById(this.props.newChatInput.props.name)!.value;
+		const newChatName = (document.getElementById(this.props.newChatInput.props.name) as HTMLInputElement).value;
 		const valid = validateInput({
 			value: newChatName,
 			type: 'chatName',
@@ -212,7 +212,7 @@ export class Chat extends Block {
 	}
 
 	_addUserToChat() {
-		const newAddedUser = document.getElementById(this.props.addUserInput.props.name)!.value;
+		const newAddedUser = (document.getElementById(this.props.addUserInput.props.name) as HTMLInputElement).value;
 		userRequester.findUser({
 			data: {
 				login: newAddedUser,
@@ -244,7 +244,7 @@ export class Chat extends Block {
 		chatRequester.deleteUsersFromChat({
 			data: {
 				users: [
-					event.target!.parentElement.id,
+					(event.target as HTMLElement).parentElement!.id,
 				],
 				chatId: this.props.currentChat.id,
 			},
