@@ -44,7 +44,6 @@ module.exports = {
 		}),
 	],
 	devServer: {
-		watch: true,
 		hot: true,
 		historyApiFallback: true,
 		static: path.join(__dirname, 'dist'),
