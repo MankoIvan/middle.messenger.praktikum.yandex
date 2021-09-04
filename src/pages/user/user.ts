@@ -100,52 +100,49 @@ export class User extends Block {
 	}
 
 	clickHandler(event: Event) {
-		if (
-			event.target === document.getElementById(this.props.userSaveButton.props.id)
-		) {
-			this._saveButtonFunc();
-		} else if (
-			event.target
-      === document.getElementById(this.props.userBackButton.props.id)
-		) {
-			router.go('/messenger');
-		} else if (
-			event.target
-      === document.getElementById(this.props.userChangePasswordButton.props.id)
-		) {
-			router.go('/password');
-		} else if (
-			event.target
-      === document.getElementById(this.props.userExitButton.props.id)
-		) {
-			authRequester.logOut()
-				.then(() => router.go('/'))
-				.catch(data => console.log(JSON.parse(data.response)));
-		} else if (
-			event.target
-      === document.getElementById(this.props.userChangeAvatar.props.id)
-		) {
-			this._changeAvatar();
+		switch (event.target) {
+			case document.getElementById(this.props.userSaveButton.props.id):
+				this._saveButtonFunc();
+				break;
+			case document.getElementById(this.props.userBackButton.props.id):
+				router.go('/messenger');
+				break;
+			case document.getElementById(this.props.userChangePasswordButton.props.id):
+				router.go('/password');
+				break;
+			case document.getElementById(this.props.userExitButton.props.id):
+				authRequester
+					.logOut()
+					.then(() => router.go('/'))
+					.catch(data => console.log(JSON.parse(data.response)));
+				break;
+			case document.getElementById(this.props.userChangeAvatar.props.id):
+				this._changeAvatar();
+				break;
+			default:
 		}
 	}
 
 	_saveButtonFunc() {
 		let valid: Boolean = true;
 		const form = document.forms.namedItem('userForm');
-		const formData: { [key: string]: string } = {};
+		const formData: {[key: string]: string} = {};
 		const formDataArray = Array.from(form!.elements) as HTMLInputElement[];
 		formDataArray.forEach(element => {
 			valid = validateInput({
 				value: element.value,
 				type: element.name,
 				errorMsgSelecor: `${addSelector}${element.id}ErrMessage`,
-			}) ? valid : false;
+			})
+				? valid
+				: false;
 			formData[element.id] = element.value;
 		});
 		if (valid) {
-			userRequester.changeUserInfo({
-				data: formData,
-			})
+			userRequester
+				.changeUserInfo({
+					data: formData,
+				})
 				.then(() => router.go('/messenger'))
 				.catch(data => console.log(JSON.parse(data.response)));
 		}
@@ -154,7 +151,8 @@ export class User extends Block {
 	}
 
 	_changeAvatar() {
-		const userAvatarInput = <HTMLInputElement>document.getElementById('userAvatarInput');
+		// ФУНКЦИЯ ДЛЯ ЗАМЕНЫ АВАТАРА
+		/* const userAvatarInput = <HTMLInputElement>document.getElementById('userAvatarInput');
 		if (userAvatarInput.files!.length) {
 			const userAvatarFormData = new FormData();
 			userAvatarFormData.append('avatar', userAvatarInput);
@@ -167,12 +165,13 @@ export class User extends Block {
 			})
 				.then(console.log)
 				.catch(console.log);
-		}
+		} */
 	}
 
 	componentDidMount() {
-		authRequester.getUser()
-			.then((data:XMLHttpRequest) => {
+		authRequester
+			.getUser()
+			.then((data: XMLHttpRequest) => {
 				this.props.userData = JSON.parse(data.response);
 				this.props.emailInput.props.value = this.props.userData.email;
 				this.props.loginInput.props.value = this.props.userData.login;

@@ -9,6 +9,7 @@ export default class Router {
 
 	constructor(rootQuery: string) {
 		if (Router.__instance) {
+			// eslint-disable-next-line no-constructor-return
 			return Router.__instance;
 		}
 

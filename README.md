@@ -9,15 +9,19 @@
 - сборка проекта и запуск локального сервера `npm run start`
 - запуск линтеров `npm run lint`
 - запуск тестов `npm run test`
+### Устаревшие команды
+- запуск проекта в режиме разработчика `npm run dev:parcel`
+- сборка проекта `npm run build:parcel`
+- сборка проекта и запуск локального сервера `npm run start:parcel`
 
 ## Netlify
 
-- https://stupefied-nobel-c31678.netlify.app/ -авторизация
-- https://stupefied-nobel-c31678.netlify.app/sign-up - регистрация
-- https://stupefied-nobel-c31678.netlify.app/settings - профиль
-- https://stupefied-nobel-c31678.netlify.app/messenger - страница чатов
-- https://stupefied-nobel-c31678.netlify.app/500 - ошибка сервера
-- https://stupefied-nobel-c31678.netlify.app/any-other-url - 404
+- https://enigmatic-ridge-93327.herokuapp.com/ -авторизация
+- https://enigmatic-ridge-93327.herokuapp.com/sign-up - регистрация
+- https://enigmatic-ridge-93327.herokuapp.com/settings - профиль
+- https://enigmatic-ridge-93327.herokuapp.com/messenger - страница чатов
+- https://enigmatic-ridge-93327.herokuapp.com/500 - ошибка сервера
+- https://enigmatic-ridge-93327.herokuapp.com/any-other-url - 404
 
 ## Процесс
 ### Спринт №1
@@ -45,6 +49,12 @@
     + работа с чатами
 - настроен WebSocket для сообщений
 - напсианы базовые тесты с использованием Mocha и Chai
+
+### Спринт №4
+- настроен webpack
+- настроена Docker сборка
+- проект размещен на Heroku
+- настроен precommit
 
 ## Pull requests
 - https://github.com/MankoIvan/middle.messenger.praktikum.yandex/pull/9 - спринт 4

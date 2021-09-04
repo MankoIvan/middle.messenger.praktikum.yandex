@@ -6,30 +6,52 @@
   "dependencies": {
     "express": "^4.17.1",
     "handlebars": "^4.7.7",
+    "jsdom-global": "^3.0.2",
     "parcel-bundler": "^1.12.5",
     "stylelint-scss": "^3.20.1"
   },
   "devDependencies": {
-    "@parcel/transformer-sass": "^2.0.0-beta.2",
+    "@parcel/transformer-sass": "^2.0.0-rc.0",
     "@types/chai": "^4.2.21",
     "@types/mocha": "^9.0.0",
-    "@typescript-eslint/eslint-plugin": "^4.28.5",
-    "@typescript-eslint/parser": "^4.28.5",
+    "@typescript-eslint/eslint-plugin": "^4.30.0",
+    "@typescript-eslint/parser": "^4.30.0",
     "chai": "^4.3.4",
-    "eslint": "^7.31.0",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.2.0",
+    "eslint": "^7.32.0",
     "eslint-config-xo": "^0.37.0",
-    "mocha": "^9.0.3",
+    "html-loader": "^2.1.2",
+    "html-webpack-plugin": "^5.3.2",
+    "husky": "^4.2.3",
+    "mocha": "^9.1.1",
+    "npm-run-all": "^4.1.5",
+    "sass": "^1.38.2",
+    "sass-loader": "^12.1.0",
+    "style-loader": "^3.2.1",
     "stylelint": "^13.13.1",
     "stylelint-config-standard": "^22.0.0",
+    "ts-loader": "^9.2.5",
     "ts-node": "^10.2.1",
-    "typescript": "^4.3.5"
+    "typescript": "^4.4.2",
+    "webpack": "^5.51.1",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.1.0"
   },
   "scripts": {
-    "dev": "parcel src/index.html",
-    "build": "parcel build src/index.html",
-    "start": "parcel build src/index.html && node ./server.ts",
+    "dev:parcel": "parcel src/index.html",
+    "build:parcel": "parcel build src/index.html",
+    "start:parcel": "parcel build src/index.html && node ./server.ts",
     "lint": "npx eslint . --fix --ext .ts && npx stylelint --fix **/*.scss",
-    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r jsdom-global/register -r ts-node/register 'src/**/*.spec.ts'"
+    "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r jsdom-global/register -r ts-node/register 'src/**/*.spec.ts'",
+    "dev": "cross-env NODE_ENV=development npx webpack serve",
+    "build": "cross-env NODE_ENV=production npx webpack",
+    "start": "cross-env NODE_ENV=production npx webpack && node ./server.ts"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "npm-run-all test lint"
+    }
   },
   "repository": {
     "type": "git",

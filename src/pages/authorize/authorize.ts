@@ -55,16 +55,14 @@ export class Authorize extends Block {
 	}
 
 	clickHandler(event: Event) {
-		if (
-			event.target
-			=== document.getElementById(this.props.authAuthorizeButton.props.id)
-		) {
-			this._authorizeButtonFunc();
-		} else if (
-			event.target
-			=== document.getElementById(this.props.authRegisterButton.props.id)
-		) {
-			router.go('/sign-up');
+		switch (event.target) {
+			case document.getElementById(this.props.authAuthorizeButton.props.id):
+				this._authorizeButtonFunc();
+				break;
+			case document.getElementById(this.props.authRegisterButton.props.id):
+				router.go('/sign-up');
+				break;
+			default:
 		}
 	}
 

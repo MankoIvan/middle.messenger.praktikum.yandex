@@ -64,15 +64,14 @@ export class Password extends Block {
 	}
 
 	clickHandler(event: Event) {
-		if (
-			event.target === document.getElementById(this.props.passwordSaveButton.props.id)
-		) {
-			this._changePasswordButtonFun();
-		} else if (
-			event.target
-      === document.getElementById(this.props.passwordBackButton.props.id)
-		) {
-			router.go('/settings');
+		switch (event.target) {
+			case document.getElementById(this.props.passwordSaveButton.props.id):
+				this._changePasswordButtonFun();
+				break;
+			case document.getElementById(this.props.passwordBackButton.props.id):
+				router.go('/settings');
+				break;
+			default:
 		}
 	}
 
