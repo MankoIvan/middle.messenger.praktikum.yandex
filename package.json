@@ -38,9 +38,9 @@
     "webpack-dev-server": "^4.1.0"
   },
   "scripts": {
-    "dev-parcel": "parcel src/index.html",
-    "build-parcel": "parcel build src/index.html",
-    "start-parcel": "parcel build src/index.html && node ./server.ts",
+    "dev:parcel": "parcel src/index.html",
+    "build:parcel": "parcel build src/index.html",
+    "start:parcel": "parcel build src/index.html && node ./server.ts",
     "lint": "npx eslint . --fix --ext .ts && npx stylelint --fix **/*.scss",
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r jsdom-global/register -r ts-node/register 'src/**/*.spec.ts'",
     "dev": "cross-env NODE_ENV=development npx webpack serve",
