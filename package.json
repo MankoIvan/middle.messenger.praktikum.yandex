@@ -44,7 +44,8 @@
     "lint": "npx eslint . --fix --ext .ts && npx stylelint --fix **/*.scss",
     "test": "env TS_NODE_COMPILER_OPTIONS='{\"module\": \"commonjs\" }' mocha -r jsdom-global/register -r ts-node/register 'src/**/*.spec.ts'",
     "dev": "cross-env NODE_ENV=development npx webpack serve",
-    "build": "cross-env NODE_ENV=production npx webpack"
+    "build": "cross-env NODE_ENV=production npx webpack",
+    "start": "cross-env NODE_ENV=production npx webpack && node ./server.ts"
   },
   "husky": {
     "hooks": {
