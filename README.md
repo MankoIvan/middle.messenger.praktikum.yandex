@@ -52,6 +52,9 @@
 
 ### Спринт №4
 - настроен webpack
+- настроена Docker сборка
+- проект размещен на Heroku
+- настроен precommit
 
 ## Pull requests
 - https://github.com/MankoIvan/middle.messenger.praktikum.yandex/pull/8 - спринт 3

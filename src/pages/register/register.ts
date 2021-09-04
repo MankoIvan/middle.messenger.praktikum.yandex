@@ -85,16 +85,14 @@ export class Register extends Block {
 	}
 
 	clickHandler(event: Event) {
-		if (
-			event.target
-			=== document.getElementById(this.props.regRegisterButton.props.id)
-		) {
-			this._registerButtonFunc();
-		} else if (
-			event.target
-      === document.getElementById(this.props.regAuthorizeButton.props.id)
-		) {
-			router.go('/');
+		switch (event.target) {
+			case document.getElementById(this.props.regRegisterButton.props.id):
+				this._registerButtonFunc();
+				break;
+			case document.getElementById(this.props.regAuthorizeButton.props.id):
+				router.go('/');
+				break;
+			default:
 		}
 	}
 

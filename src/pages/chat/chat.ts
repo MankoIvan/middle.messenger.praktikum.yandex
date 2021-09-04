@@ -91,44 +91,34 @@ export class Chat extends Block {
 	}
 
 	clickHandler(event: Event) {
-		if (
-			event.target
-			=== document.getElementById(this.props.settingsButton.props.id)
-		) {
-			router.go('/settings');
-		} else if ((event.target! as HTMLElement).classList.contains('contact__body')) {
-			this._openChat(event);
-		} else if (
-			event.target
-			=== document.getElementById(this.props.newChatButton.props.id)
-		) {
-			this.props.addChatVisible = !this.props.addChatVisible;
-			this.setProps(this.props);
-		} else if (
-			event.target
-			=== document.getElementById(this.props.chatAddChatButton.props.id)
-		) {
-			this._addChat();
-		} else if (
-			event.target
-			=== document.getElementById(this.props.chatSettingsButton.props.id)
-		) {
-			this.props.chatSettingsVisible = !this.props.chatSettingsVisible;
-			this.setProps(this.props);
-		} else if (
-			event.target
-			=== document.getElementById(this.props.deleteChatButton.props.id)
-		) {
-			this._deleteChat();
-		} else if (
-			event.target
-			=== document.getElementById(this.props.addUserButton.props.id)
-		) {
-			this._addUserToChat();
-		} else if (
-			(event.target! as HTMLElement).id === 'deleteUserButton'
-		) {
-			this._deleteUserFromChat(event);
+		switch (event.target) {
+			case document.getElementById(this.props.settingsButton.props.id):
+				router.go('/settings');
+				break;
+			case document.getElementById(this.props.newChatButton.props.id):
+				this.props.addChatVisible = !this.props.addChatVisible;
+				this.setProps(this.props);
+				break;
+			case document.getElementById(this.props.chatAddChatButton.props.id):
+				this._addChat();
+				break;
+			case document.getElementById(this.props.chatSettingsButton.props.id):
+				this.props.chatSettingsVisible = !this.props.chatSettingsVisible;
+				this.setProps(this.props);
+				break;
+			case document.getElementById(this.props.deleteChatButton.props.id):
+				this._deleteChat();
+				break;
+			case document.getElementById(this.props.addUserButton.props.id):
+				this._addUserToChat();
+				break;
+			case document.getElementById(this.props.deleteUserButton.props.id):
+				this._deleteUserFromChat(event);
+				break;
+			default:
+				if ((event.target! as HTMLElement).classList.contains('contact__body')) {
+					this._openChat(event);
+				}
 		}
 	}
 

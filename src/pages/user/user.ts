@@ -100,21 +100,26 @@ export class User extends Block {
 	}
 
 	clickHandler(event: Event) {
-		if (event.target === document.getElementById(this.props.userSaveButton.props.id)) {
-			this._saveButtonFunc();
-		} else if (event.target === document.getElementById(this.props.userBackButton.props.id)) {
-			router.go('/messenger');
-		} else if (
-			event.target === document.getElementById(this.props.userChangePasswordButton.props.id)
-		) {
-			router.go('/password');
-		} else if (event.target === document.getElementById(this.props.userExitButton.props.id)) {
-			authRequester
-				.logOut()
-				.then(() => router.go('/'))
-				.catch(data => console.log(JSON.parse(data.response)));
-		} else if (event.target === document.getElementById(this.props.userChangeAvatar.props.id)) {
-			this._changeAvatar();
+		switch (event.target) {
+			case document.getElementById(this.props.userSaveButton.props.id):
+				this._saveButtonFunc();
+				break;
+			case document.getElementById(this.props.userBackButton.props.id):
+				router.go('/messenger');
+				break;
+			case document.getElementById(this.props.userChangePasswordButton.props.id):
+				router.go('/password');
+				break;
+			case document.getElementById(this.props.userExitButton.props.id):
+				authRequester
+					.logOut()
+					.then(() => router.go('/'))
+					.catch(data => console.log(JSON.parse(data.response)));
+				break;
+			case document.getElementById(this.props.userChangeAvatar.props.id):
+				this._changeAvatar();
+				break;
+			default:
 		}
 	}
 
@@ -146,8 +151,8 @@ export class User extends Block {
 	}
 
 	_changeAvatar() {
-		/* 		ФУНКЦИЯ ДЛЯ ЗАМЕНЫ АВАТАРА
-		const userAvatarInput = <HTMLInputElement>document.getElementById('userAvatarInput');
+		// ФУНКЦИЯ ДЛЯ ЗАМЕНЫ АВАТАРА
+		/* const userAvatarInput = <HTMLInputElement>document.getElementById('userAvatarInput');
 		if (userAvatarInput.files!.length) {
 			const userAvatarFormData = new FormData();
 			userAvatarFormData.append('avatar', userAvatarInput);

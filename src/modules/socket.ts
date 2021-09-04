@@ -1,5 +1,5 @@
-
 import {Message} from '../components/message/message';
+const baseUrl = 'wss://ya-praktikum.tech/ws/chats';
 
 type MessageT = {
 	// eslint-disable-next-line camelcase
@@ -24,7 +24,7 @@ export default class SocketModule {
 	constructor(userId: string, chatId: string, token: string, chatBody: HTMLElement | null) {
 		this.socket?.close();
 		this.socket = new WebSocket(
-			`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`,
+			`${baseUrl}/${userId}/${chatId}/${token}`,
 		);
 		this.socket.addEventListener('open', this._onOpen.bind(this));
 		this.socket.addEventListener('close', this._onClose.bind(this));
@@ -35,6 +35,7 @@ export default class SocketModule {
 		this.userId = Number(userId);
 
 		if (SocketModule.__instance) {
+			// eslint-disable-next-line no-constructor-return
 			return SocketModule.__instance;
 		}
 
